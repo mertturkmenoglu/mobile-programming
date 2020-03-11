@@ -29,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText emailET = findViewById(R.id.sign_up_email_et);
         final EditText userNameET = findViewById(R.id.sign_up_username_et);
         final EditText passwordET = findViewById(R.id.sign_up_password_et);
-        final EditText imageURLET = findViewById(R.id.sign_up_image_url_et);
+        final EditText githubUsernameET = findViewById(R.id.sign_up_github_username_et);
         Button signUpBtn = findViewById(R.id.sign_up_button);
 
         DBHelper dbHelper = new DBHelper(this);
@@ -41,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = userNameET.getText().toString();
                 String email = emailET.getText().toString();
                 String password = passwordET.getText().toString();
-                String imageURL = imageURLET.getText().toString();
+                String imageURL = "https://github.com/" + githubUsernameET.getText().toString() + ".png";
 
                 if (username.isEmpty() || email.isEmpty()
                         || password.length() < AppConstants.MIN_PASSWORD_LENGTH || imageURL.isEmpty()) {
