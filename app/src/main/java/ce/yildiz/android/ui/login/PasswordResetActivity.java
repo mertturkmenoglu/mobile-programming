@@ -25,12 +25,12 @@ public class PasswordResetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_password_reset);
 
         Intent intent = getIntent();
-        final String userName = intent.getStringExtra("username");
+        final String username = intent.getStringExtra("username");
 
         DBHelper dbHelper = new DBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-        Toast.makeText(this, "Reset password for " + userName, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Reset password for " + username, Toast.LENGTH_SHORT).show();
 
         final EditText newPasswordET = findViewById(R.id.reset_password_new_password_et);
         final EditText confirmPasswordET = findViewById(R.id.reset_password_confirm_password_et);
@@ -47,7 +47,7 @@ public class PasswordResetActivity extends AppCompatActivity {
                 } else if (!newPassword.equals(confirmPassword)) {
                     Toast.makeText(PasswordResetActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else {
-                    resetPassword(userName, newPassword);
+                    resetPassword(username, newPassword);
 
                     Toast.makeText(PasswordResetActivity.this, "Reset", Toast.LENGTH_SHORT).show();
                     Intent loginIntent = new Intent(PasswordResetActivity.this, LoginActivity.class);

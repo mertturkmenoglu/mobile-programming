@@ -15,6 +15,7 @@ import ce.yildiz.android.R;
 import ce.yildiz.android.util.EmailHelper;
 
 public class EmailComposeActivity extends AppCompatActivity {
+    @SuppressWarnings("unused")
     private static final String TAG = EmailComposeActivity.class.getSimpleName();
     private static final int EMAIL_ATTACHMENT_REQUEST_CODE = 1;
     private Uri fileUri;

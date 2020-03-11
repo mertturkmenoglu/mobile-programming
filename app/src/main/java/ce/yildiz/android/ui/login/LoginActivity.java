@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ce.yildiz.android.R;
+import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
@@ -58,23 +59,30 @@ public class LoginActivity extends AppCompatActivity {
                 String password = passwordET.getText().toString().trim();
 
                 if (loginText.isEmpty() || password.length() < AppConstants.MIN_PASSWORD_LENGTH) {
-                    Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    Toast
+                        .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
+                        .show();
                 } else {
-                    String email = login(loginText, password);
-                    if (email != null) {
-                        Toast.makeText(LoginActivity.this, "Login", Toast.LENGTH_SHORT).show();
+                    User user = login(loginText, password);
+
+                    if (user != null) {
+                        Toast
+                            .makeText(LoginActivity.this, "Login", Toast.LENGTH_SHORT)
+                            .show();
                         Intent emailComposeIntent = new Intent(LoginActivity.this, EmailComposeActivity.class);
-                        emailComposeIntent.putExtra("email", email);
+                        emailComposeIntent.putExtra("email", user.getEmail());
                         startActivity(emailComposeIntent);
                     } else {
-                        Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        Toast
+                            .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
+                            .show();
                     }
                 }
             }
         });
     }
 
-    private String login(String loginText, String password) {
+    private User login(String loginText, String password) {
         Cursor cursor = mDatabase.query(
                 UserContract.UserEntry.TABLE_NAME,
                 null,
@@ -88,12 +96,13 @@ public class LoginActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             try {
                 String dbUserName = cursor.getString(cursor.getColumnIndex(UserContract.UserEntry.COLUMN_USER_NAME));
-                String dbPassword = cursor.getString(cursor.getColumnIndex(UserContract.UserEntry.COLUMN_PASSWORD));
                 String dbEmail = cursor.getString(cursor.getColumnIndex(UserContract.UserEntry.COLUMN_EMAIL));
+                String dbPassword = cursor.getString(cursor.getColumnIndex(UserContract.UserEntry.COLUMN_PASSWORD));
+                String dbImageURL = cursor.getString(cursor.getColumnIndex(UserContract.UserEntry.COLUMN_IMAGE_URL));
 
                 if ((dbUserName.equals(loginText) || dbEmail.equals(loginText)) && dbPassword.equals(password)) {
                     cursor.close();
-                    return dbEmail;
+                    return new User(dbUserName, dbEmail, dbPassword, dbImageURL);
                 }
             } catch (Exception ignored) {
 
