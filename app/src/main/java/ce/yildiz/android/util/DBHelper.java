@@ -21,7 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 UserContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 UserContract.UserEntry.COLUMN_USER_NAME + " TEXT NOT NULL, " +
                 UserContract.UserEntry.COLUMN_EMAIL + " TEXT NOT NULL, " +
-                UserContract.UserEntry.COLUMN_PASSWORD + " TEXT NOT NULL " + ");";
+                UserContract.UserEntry.COLUMN_PASSWORD + " TEXT NOT NULL, " +
+                UserContract.UserEntry.COLUMN_IMAGE_URL + " TEXT NOT NULL " + ");";
         db.execSQL(SQL_CREATE_USERS_TABLE);
     }
 

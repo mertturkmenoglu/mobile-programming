@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText emailET = findViewById(R.id.sign_up_email_et);
         final EditText userNameET = findViewById(R.id.sign_up_username_et);
         final EditText passwordET = findViewById(R.id.sign_up_password_et);
+        final EditText imageURLET = findViewById(R.id.sign_up_image_url_et);
         Button signUpBtn = findViewById(R.id.sign_up_button);
 
         DBHelper dbHelper = new DBHelper(this);
@@ -37,17 +38,19 @@ public class SignUpActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String username = userNameET.getText().toString();
                 String email = emailET.getText().toString();
-                String userName = userNameET.getText().toString();
                 String password = passwordET.getText().toString();
+                String imageURL = imageURLET.getText().toString();
 
-                if (userName.isEmpty() || email.isEmpty() || password.length() < AppConstants.MIN_PASSWORD_LENGTH) {
+                if (username.isEmpty() || email.isEmpty()
+                        || password.length() < AppConstants.MIN_PASSWORD_LENGTH || imageURL.isEmpty()) {
                     Toast
                         .makeText(SignUpActivity.this, "Enter credentials", Toast.LENGTH_SHORT)
                         .show();
                 } else {
-                    if (!userExist(userName, email)) {
-                        saveUser(email, userName, password);
+                    if (!userExist(username, email)) {
+                        saveUser(username, email, password, imageURL);
                         Intent loginIntent = new Intent(SignUpActivity.this, LoginActivity.class);
                         startActivity(loginIntent);
                     } else {
@@ -59,11 +62,12 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUser(String email, String username, String password) {
+    private void saveUser(String username, String email, String password, String imageURL) {
         ContentValues cv = new ContentValues();
-        cv.put(UserContract.UserEntry.COLUMN_EMAIL, email);
         cv.put(UserContract.UserEntry.COLUMN_USER_NAME, username);
+        cv.put(UserContract.UserEntry.COLUMN_EMAIL, email);
         cv.put(UserContract.UserEntry.COLUMN_PASSWORD, password);
+        cv.put(UserContract.UserEntry.COLUMN_IMAGE_URL, imageURL);
         mDatabase.insert(UserContract.UserEntry.TABLE_NAME, null, cv);
     }
 

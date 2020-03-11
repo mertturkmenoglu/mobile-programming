@@ -1,7 +1,5 @@
 package ce.yildiz.android.ui.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,12 +10,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
+import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
+import ce.yildiz.android.ui.users.UserListActivity;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
-import ce.yildiz.android.data.model.UserContract;
 
 public class LoginActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         TextView forgotPasswordTV = findViewById(R.id.login_forgot_password_text);
         TextView signUpTV = findViewById(R.id.login_sign_up_text);
         Button loginBtn = findViewById(R.id.login_button);
+        Button listUsersBtn = findViewById(R.id.login_list_users_button);
 
         forgotPasswordTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                     }
                 }
+            }
+        });
+
+        listUsersBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userListIntent = new Intent(LoginActivity.this, UserListActivity.class);
+                startActivity(userListIntent);
             }
         });
     }
