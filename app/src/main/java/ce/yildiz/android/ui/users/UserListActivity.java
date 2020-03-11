@@ -3,6 +3,12 @@ package ce.yildiz.android.ui.users;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +22,7 @@ import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.util.DBHelper;
+import ce.yildiz.android.util.RecyclerViewClickListener;
 
 public class UserListActivity extends AppCompatActivity {
     @Override
@@ -29,7 +36,19 @@ public class UserListActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter adapter = new UserListAdapter(this, users);
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                TextView password = view.findViewById(R.id.user_list_item_password);
+                if (password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        };
+
+        RecyclerView.Adapter adapter = new UserListAdapter(this, users, listener);
         recyclerView.setAdapter(adapter);
     }
 

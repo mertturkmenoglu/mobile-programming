@@ -29,4 +29,5 @@
     <string name="image_url">Image URL</string>
     <string name="image_url_hint">Enter your image URL</string>
     <string name="list_users">LIST USERS</string>
+    <string name="profile_picture_desc">Profile picture</string>
 </resources>
