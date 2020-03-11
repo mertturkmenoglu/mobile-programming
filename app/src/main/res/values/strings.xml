@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Mobile Programming</string>
+    <string name="login_text">E-Mail / Username</string>
+    <string name="login_hint">Enter your e-mail or username</string>
+    <string name="login_button_text">LOGIN</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter password</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="sign_up">Don\'t have an account? Sign up</string>
+    <string name="sign_up_button_text">SIGN UP</string>
+    <string name="reset_password_button_text">Reset</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="dummy_text_10w">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec.</string>
+    <string name="email_from">From:</string>
+    <string name="email_to">To:</string>
+    <string name="email_to_hint">To</string>
+    <string name="email_from_hint">From</string>
+    <string name="email_subject">Subject:</string>
+    <string name="email_subject_hint">Subject</string>
+    <string name="compose_email_hint">Compose email</string>
+    <string name="email_send_button">Send</string>
+    <string name="email_attachment_desc">E-mail attachment</string>
+    <string name="email_send_btn_desc">Email send</string>
+    <string name="email_text">E-Mail</string>
+    <string name="email_hint">Enter your e-mail</string>
+    <string name="username_text">Username</string>
+    <string name="username_hint">Enter your username</string>
+</resources>
