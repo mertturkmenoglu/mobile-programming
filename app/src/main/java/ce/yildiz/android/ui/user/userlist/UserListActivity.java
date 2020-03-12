@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +24,6 @@ import java.util.List;
 import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
-import ce.yildiz.android.ui.user.UserDetailActivity;
 import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.RecyclerViewClickListener;
 
@@ -41,13 +45,19 @@ public class UserListActivity extends AppCompatActivity {
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Intent userDetailIntent = new Intent(UserListActivity.this, UserDetailActivity.class);
-                User user = users.get(position);
-                userDetailIntent.putExtra("username", user.getUsername());
-                userDetailIntent.putExtra("email", user.getEmail());
-                userDetailIntent.putExtra("password", user.getPassword());
-                userDetailIntent.putExtra("image_url", user.getImageURL());
-                startActivityForResult(userDetailIntent, USER_DETAIL_REQUEST_CODE);
+                TextView password = view.findViewById(R.id.user_list_item_password);
+                CardView cardView = view.findViewById(R.id.user_list_item_card_view);
+                LinearLayout layout = view.findViewById(R.id.user_list_item_container);
+
+                if (password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    cardView.setCardBackgroundColor(getColor(android.R.color.holo_red_light));
+                    layout.setBackgroundColor(getColor(android.R.color.holo_red_light));
+                } else {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    cardView.setCardBackgroundColor(getColor(R.color.cardview_dark_background));
+                    layout.setBackgroundColor(getColor(R.color.cardview_dark_background));
+                }
             }
         };
 

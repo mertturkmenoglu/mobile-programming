@@ -1,6 +1,7 @@
 package ce.yildiz.android.ui.user.userlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.List;
 import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.ui.user.UserDetailActivity;
 import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.RecyclerViewClickListener;
 
@@ -67,7 +69,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UserViewHolder holder, final int position) {
         User user = mUsers.get(position);
         holder.usernameTV.setText(user.getUsername());
         holder.emailTV.setText(user.getEmail());
@@ -79,6 +81,19 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
                 .placeholder(R.drawable.ic_person_holo_purple_24dp)
                 .error(R.drawable.ic_adb_black_24dp)
                 .into(holder.imageIV);
+
+        holder.imageIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent userDetailIntent = new Intent(mContext, UserDetailActivity.class);
+                User user = mUsers.get(position);
+                userDetailIntent.putExtra("username", user.getUsername());
+                userDetailIntent.putExtra("email", user.getEmail());
+                userDetailIntent.putExtra("password", user.getPassword());
+                userDetailIntent.putExtra("image_url", user.getImageURL());
+                mContext.startActivity(userDetailIntent);
+            }
+        });
     }
 
     @Override

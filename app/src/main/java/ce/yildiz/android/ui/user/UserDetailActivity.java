@@ -47,7 +47,6 @@ public class UserDetailActivity extends AppCompatActivity {
         TextView emailTV = findViewById(R.id.user_detail_email);
         TextView passwordTV = findViewById(R.id.user_detail_password);
         Button deleteUserBtn = findViewById(R.id.user_detail_delete_user_btn);
-        Toast.makeText(this, imageURL, Toast.LENGTH_SHORT).show();
 
         Glide.with(this)
                 .load(imageURL)
