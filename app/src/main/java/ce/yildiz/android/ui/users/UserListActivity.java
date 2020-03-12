@@ -11,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,9 @@ public class UserListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
-        List<User> users = getUsersFromDatabase();
+        final List<User> users = getUsersFromDatabase();
 
-        RecyclerView recyclerView = findViewById(R.id.user_list_recycler_view);
+        final RecyclerView recyclerView = findViewById(R.id.user_list_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -51,8 +53,28 @@ public class UserListActivity extends AppCompatActivity {
             }
         };
 
-        RecyclerView.Adapter adapter = new UserListAdapter(this, users, listener);
+        UserListAdapter adapter = new UserListAdapter(this, users, listener);
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        final SwipeRefreshLayout swipeRefresh = findViewById(R.id.user_list_swipe_refresh);
+        swipeRefresh.setColorSchemeColors(getColor(R.color.colorPrimary));
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                users.clear();
+                users.addAll(getUsersFromDatabase());
+
+                RecyclerView.Adapter a = recyclerView.getAdapter();
+                if (a != null) {
+                    a.notifyDataSetChanged();
+                }
+
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     private List<User> getUsersFromDatabase() {

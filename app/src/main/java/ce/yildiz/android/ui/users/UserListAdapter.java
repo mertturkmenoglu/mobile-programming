@@ -1,6 +1,7 @@
 package ce.yildiz.android.ui.users;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import java.util.List;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
+import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.RecyclerViewClickListener;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
@@ -81,5 +84,22 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     @Override
     public int getItemCount() {
         return mUsers.size();
+    }
+
+    void deleteItem(int position) {
+        User removedUser = mUsers.remove(position);
+        notifyItemRemoved(position);
+
+        removeFromDatabase(removedUser);
+    }
+
+    private void removeFromDatabase(User user) {
+        try {
+            SQLiteDatabase db = new DBHelper(mContext).getWritableDatabase();
+            db.delete(UserContract.UserEntry.TABLE_NAME,
+                    UserContract.UserEntry.COLUMN_USER_NAME + "='" + user.getUsername() + "'", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
