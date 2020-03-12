@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,12 +39,14 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 TextView password = view.findViewById(R.id.user_list_item_password);
+                CardView cardView = view.findViewById(R.id.user_list_item_card_view);
+
                 if (password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                     password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    view.setBackgroundColor(getColor(android.R.color.holo_red_light));
+                    cardView.setCardBackgroundColor(getColor(android.R.color.holo_red_light));
                 } else {
                     password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    view.setBackgroundColor(getColor(android.R.color.background_light));
+                    cardView.setCardBackgroundColor(getColor(android.R.color.background_light));
                 }
             }
         };
