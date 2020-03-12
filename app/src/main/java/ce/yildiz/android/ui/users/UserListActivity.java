@@ -23,6 +23,9 @@ import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.RecyclerViewClickListener;
 
 public class UserListActivity extends AppCompatActivity {
+    private static final int USER_DETAIL_REQUEST_CODE = 2;
+    RecyclerView mRecyclerView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +33,9 @@ public class UserListActivity extends AppCompatActivity {
 
         final List<User> users = getUsersFromDatabase();
 
-        final RecyclerView recyclerView = findViewById(R.id.user_list_recycler_view);
+        mRecyclerView = findViewById(R.id.user_list_recycler_view);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
@@ -43,15 +46,15 @@ public class UserListActivity extends AppCompatActivity {
                 userDetailIntent.putExtra("email", user.getEmail());
                 userDetailIntent.putExtra("password", user.getPassword());
                 userDetailIntent.putExtra("image_url", user.getImageURL());
-                startActivity(userDetailIntent);
+                startActivityForResult(userDetailIntent, USER_DETAIL_REQUEST_CODE);
             }
         };
 
         UserListAdapter adapter = new UserListAdapter(this, users, listener);
-        recyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(adapter));
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         final SwipeRefreshLayout swipeRefresh = findViewById(R.id.user_list_swipe_refresh);
         swipeRefresh.setColorSchemeColors(getColor(R.color.colorPrimary));
@@ -61,7 +64,7 @@ public class UserListActivity extends AppCompatActivity {
                 users.clear();
                 users.addAll(getUsersFromDatabase());
 
-                RecyclerView.Adapter a = recyclerView.getAdapter();
+                RecyclerView.Adapter a = mRecyclerView.getAdapter();
                 if (a != null) {
                     a.notifyDataSetChanged();
                 }
@@ -69,6 +72,20 @@ public class UserListActivity extends AppCompatActivity {
                 swipeRefresh.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == USER_DETAIL_REQUEST_CODE) {
+                RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }
     }
 
     private List<User> getUsersFromDatabase() {

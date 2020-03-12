@@ -32,4 +32,6 @@
     <string name="profile_picture_desc">Profile picture</string>
     <string name="update_user">Update User</string>
     <string name="delete">Delete</string>
+    <string name="delete_user">Delete user</string>
+    <string name="delete_user_message">Are you sure you want to delete user?</string>
 </resources>
