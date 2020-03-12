@@ -1,7 +1,6 @@
 package ce.yildiz.android.ui.users;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.util.RecyclerViewClickListener;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
-    private static final String TAG = UserListAdapter.class.getSimpleName();
     private final Context mContext;
     private List<User> mUsers;
     private RecyclerViewClickListener mListener;
@@ -72,8 +70,12 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         holder.emailTV.setText(user.getEmail());
         holder.passwordTV.setText(user.getPassword());
 
-        Glide.with(mContext).load(user.getImageURL()).override(125, 125).into(holder.imageIV);
-        Log.e(TAG, "onBindViewHolder: " + user.getImageURL());
+        Glide.with(mContext)
+                .load(user.getImageURL())
+                .override(125, 125)
+                .placeholder(R.drawable.ic_person_holo_purple_24dp)
+                .error(R.drawable.ic_adb_black_24dp)
+                .into(holder.imageIV);
     }
 
     @Override

@@ -2,6 +2,7 @@ package ce.yildiz.android.data.model;
 
 import androidx.annotation.NonNull;
 
+@SuppressWarnings("unused")
 public class User {
     private String username;
     private String email;

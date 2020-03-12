@@ -3,12 +3,10 @@ package ce.yildiz.android.ui.users;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +40,10 @@ public class UserListActivity extends AppCompatActivity {
                 TextView password = view.findViewById(R.id.user_list_item_password);
                 if (password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                     password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    view.setBackgroundColor(getColor(android.R.color.holo_red_light));
                 } else {
                     password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    view.setBackgroundColor(getColor(android.R.color.background_light));
                 }
             }
         };
