@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.users;
+package ce.yildiz.android.ui.user;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -34,7 +34,7 @@ public class UserDetailActivity extends AppCompatActivity {
 
         String imageURL = incomingIntent.getStringExtra("image_url");
         final String username = incomingIntent.getStringExtra("username");
-        String email = incomingIntent.getStringExtra("email");
+        final String email = incomingIntent.getStringExtra("email");
         String password = incomingIntent.getStringExtra("password");
 
         if (imageURL == null || username == null || email == null || password == null) {
@@ -46,8 +46,8 @@ public class UserDetailActivity extends AppCompatActivity {
         TextView usernameTV = findViewById(R.id.user_detail_username);
         TextView emailTV = findViewById(R.id.user_detail_email);
         TextView passwordTV = findViewById(R.id.user_detail_password);
-        Button updateUserBtn = findViewById(R.id.user_detail_update_user_btn);
         Button deleteUserBtn = findViewById(R.id.user_detail_delete_user_btn);
+        Toast.makeText(this, imageURL, Toast.LENGTH_SHORT).show();
 
         Glide.with(this)
                 .load(imageURL)
@@ -60,19 +60,9 @@ public class UserDetailActivity extends AppCompatActivity {
         emailTV.setText(email);
         passwordTV.setText(password);
 
-        // TODO: Update method
-        updateUserBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(UserDetailActivity.this, "Update User", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // TODO: Update method
         deleteUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserDetailActivity.this, "Delete Users", Toast.LENGTH_SHORT).show();
                 new AlertDialog.Builder(UserDetailActivity.this)
                         .setTitle(R.string.delete_user)
                         .setMessage(R.string.delete_user_message)

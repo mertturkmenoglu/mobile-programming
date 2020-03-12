@@ -16,7 +16,7 @@ import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
-import ce.yildiz.android.ui.users.UserListActivity;
+import ce.yildiz.android.ui.user.userlist.UserListActivity;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
 

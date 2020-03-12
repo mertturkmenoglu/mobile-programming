@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.users;
+package ce.yildiz.android.ui.user.userlist;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;

@@ -15,7 +15,7 @@
             android:id="@+id/user_detail_image"
             android:layout_width="125dp"
             android:layout_height="125dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="64dp"
             android:contentDescription="@string/profile_picture_desc"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -68,21 +68,6 @@
             tools:text="PASSWORD" />
 
         <Button
-            android:id="@+id/user_detail_update_user_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/rounded_edit_text_shape"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/update_user"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_detail_password"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Button
             android:id="@+id/user_detail_delete_user_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,8 +79,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/user_detail_update_user_btn"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/user_detail_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

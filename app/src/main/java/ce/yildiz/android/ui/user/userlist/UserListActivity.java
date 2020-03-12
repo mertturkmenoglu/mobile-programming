@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.users;
+package ce.yildiz.android.ui.user.userlist;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +19,7 @@ import java.util.List;
 import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.ui.user.UserDetailActivity;
 import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.RecyclerViewClickListener;
 
