@@ -30,4 +30,6 @@
     <string name="image_url_hint">Enter your GitHub username</string>
     <string name="list_users">LIST USERS</string>
     <string name="profile_picture_desc">Profile picture</string>
+    <string name="update_user">Update User</string>
+    <string name="delete">Delete</string>
 </resources>

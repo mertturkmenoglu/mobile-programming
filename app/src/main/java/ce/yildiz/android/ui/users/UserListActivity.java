@@ -1,16 +1,13 @@
 package ce.yildiz.android.ui.users;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,16 +37,13 @@ public class UserListActivity extends AppCompatActivity {
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
             @Override
             public void onClick(View view, int position) {
-                TextView password = view.findViewById(R.id.user_list_item_password);
-                CardView cardView = view.findViewById(R.id.user_list_item_card_view);
-
-                if (password.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
-                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    cardView.setCardBackgroundColor(getColor(android.R.color.holo_red_light));
-                } else {
-                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    cardView.setCardBackgroundColor(getColor(android.R.color.background_light));
-                }
+                Intent userDetailIntent = new Intent(UserListActivity.this, UserDetailActivity.class);
+                User user = users.get(position);
+                userDetailIntent.putExtra("username", user.getUsername());
+                userDetailIntent.putExtra("email", user.getEmail());
+                userDetailIntent.putExtra("password", user.getPassword());
+                userDetailIntent.putExtra("image_url", user.getImageURL());
+                startActivity(userDetailIntent);
             }
         };
 
