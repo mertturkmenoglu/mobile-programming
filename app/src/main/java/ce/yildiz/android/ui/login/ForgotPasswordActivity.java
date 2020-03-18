@@ -5,31 +5,29 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
-import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.databinding.ActivityForgotPasswordBinding;
+import ce.yildiz.android.util.DBHelper;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
+    private ActivityForgotPasswordBinding binding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forgot_password);
+        binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        final EditText loginET = findViewById(R.id.forgot_password_login_et);
-        Button resetBtn = findViewById(R.id.forgot_password_reset_password_btn);
-
-        resetBtn.setOnClickListener(new View.OnClickListener() {
+        binding.forgotPasswordResetPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String loginText = loginET.getText().toString();
+                String loginText = binding.forgotPasswordLoginEt.getText().toString();
 
                 if (loginText.isEmpty()) {
                     Toast

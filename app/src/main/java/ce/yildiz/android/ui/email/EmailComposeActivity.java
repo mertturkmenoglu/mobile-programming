@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.R;
+import ce.yildiz.android.databinding.ActivityEmailComposeBinding;
 import ce.yildiz.android.util.EmailHelper;
 
 public class EmailComposeActivity extends AppCompatActivity {
@@ -19,18 +17,14 @@ public class EmailComposeActivity extends AppCompatActivity {
     private static final String TAG = EmailComposeActivity.class.getSimpleName();
     private static final int EMAIL_ATTACHMENT_REQUEST_CODE = 1;
     private Uri fileUri;
+    private ActivityEmailComposeBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_compose);
-
-        final EditText fromET = findViewById(R.id.email_from_et);
-        final EditText toET = findViewById(R.id.email_to_et);
-        final EditText subjectET = findViewById(R.id.email_subject_et);
-        final EditText composeET = findViewById(R.id.email_compose);
-        ImageButton sendBtn = findViewById(R.id.email_send_button);
-        ImageButton attachmentBtn = findViewById(R.id.email_attachment_btn);
+        binding = ActivityEmailComposeBinding.inflate(getLayoutInflater());
+        View root = binding.getRoot();
+        setContentView(root);
 
         Intent comingIntent = getIntent();
         String intentEmail = null;
@@ -42,16 +36,16 @@ public class EmailComposeActivity extends AppCompatActivity {
         }
 
         if (intentEmail != null) {
-            fromET.setText(intentEmail);
+            binding.emailFromEt.setText(intentEmail);
         }
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
+        binding.emailSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String from = fromET.getText().toString().trim();
-                String to = toET.getText().toString().trim();
-                String subject = subjectET.getText().toString().trim();
-                String compose = composeET.getText().toString().trim();
+                String from =  binding.emailFromEt.getText().toString().trim();
+                String to =  binding.emailToEt.getText().toString().trim();
+                String subject = binding.emailSubjectEt.getText().toString().trim();
+                String compose =  binding.emailCompose.getText().toString().trim();
 
                 if (from.isEmpty() || to.isEmpty() || subject.isEmpty() || compose.isEmpty()) {
                     Toast.makeText(EmailComposeActivity.this, "Please fill all areas", Toast.LENGTH_SHORT).show();
@@ -62,7 +56,7 @@ public class EmailComposeActivity extends AppCompatActivity {
             }
         });
 
-        attachmentBtn.setOnClickListener(new View.OnClickListener() {
+        binding.emailAttachmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);

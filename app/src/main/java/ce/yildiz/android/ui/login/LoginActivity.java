@@ -5,16 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.R;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.databinding.ActivityLoginBinding;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.ui.user.userlist.UserListActivity;
 import ce.yildiz.android.util.AppConstants;
@@ -22,23 +19,19 @@ import ce.yildiz.android.util.DBHelper;
 
 public class LoginActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        View root = binding.getRoot();
+        setContentView(root);
 
         DBHelper dbHelper = new DBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-        final EditText loginET = findViewById(R.id.login_login_et);
-        final EditText passwordET = findViewById(R.id.login_password_et);
-        TextView forgotPasswordTV = findViewById(R.id.login_forgot_password_text);
-        TextView signUpTV = findViewById(R.id.login_sign_up_text);
-        Button loginBtn = findViewById(R.id.login_button);
-        Button listUsersBtn = findViewById(R.id.login_list_users_button);
-
-        forgotPasswordTV.setOnClickListener(new View.OnClickListener() {
+        binding.loginForgotPasswordText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent forgotPasswordIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
@@ -46,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        signUpTV.setOnClickListener(new View.OnClickListener() {
+        binding.loginSignUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);
@@ -54,11 +47,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String loginText = loginET.getText().toString().trim();
-                String password = passwordET.getText().toString().trim();
+                String loginText = binding.loginLoginEt.getText().toString().trim();
+                String password = binding.loginPasswordEt.getText().toString().trim();
 
                 if (loginText.isEmpty() || password.length() < AppConstants.MIN_PASSWORD_LENGTH) {
                     Toast
@@ -83,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        listUsersBtn.setOnClickListener(new View.OnClickListener() {
+        binding.loginListUsersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent userListIntent = new Intent(LoginActivity.this, UserListActivity.class);

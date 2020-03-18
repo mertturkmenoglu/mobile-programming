@@ -6,42 +6,36 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.R;
+import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.databinding.ActivitySignUpBinding;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
-import ce.yildiz.android.data.model.UserContract;
 
 public class SignUpActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
+    private ActivitySignUpBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-
-        final EditText emailET = findViewById(R.id.sign_up_email_et);
-        final EditText userNameET = findViewById(R.id.sign_up_username_et);
-        final EditText passwordET = findViewById(R.id.sign_up_password_et);
-        final EditText githubUsernameET = findViewById(R.id.sign_up_github_username_et);
-        Button signUpBtn = findViewById(R.id.sign_up_button);
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         DBHelper dbHelper = new DBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-        signUpBtn.setOnClickListener(new View.OnClickListener() {
+        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = userNameET.getText().toString();
-                String email = emailET.getText().toString();
-                String password = passwordET.getText().toString();
-                String imageURL = "https://github.com/" + githubUsernameET.getText().toString() + ".png";
+                String username = binding.signUpUsernameEt.getText().toString();
+                String email = binding.signUpEmailEt.getText().toString();
+                String password = binding.signUpPasswordEt.getText().toString();
+                String imageURL = "https://github.com/" + binding.signUpGithubUsernameEt.getText().toString() + ".png";
 
                 if (username.isEmpty() || email.isEmpty()
                         || password.length() < AppConstants.MIN_PASSWORD_LENGTH || imageURL.isEmpty()) {
