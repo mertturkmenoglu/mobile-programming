@@ -17,17 +17,6 @@ public class EmailHelper {
     }
 
     public void send(String[] to, String subject, String message, Uri file) {
-//        Uri uri = Uri.parse("mailto:" + to[0])
-//                .buildUpon()
-//                .appendQueryParameter("subject", subject)
-//                .appendQueryParameter("to", to[0])
-//                .appendQueryParameter("body", message)
-//                .build();
-//
-//        Intent i = new Intent(Intent.ACTION_SENDTO, uri);
-//        mContext.startActivity(Intent.createChooser(i, "E-Mail"));
-
-
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
         emailIntent.setType("message/rfc822");

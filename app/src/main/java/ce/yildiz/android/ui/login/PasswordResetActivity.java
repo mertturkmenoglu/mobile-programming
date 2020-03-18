@@ -5,24 +5,24 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.R;
-import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.databinding.ActivityPasswordResetBinding;
+import ce.yildiz.android.util.DBHelper;
 
 public class PasswordResetActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
+    private ActivityPasswordResetBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password_reset);
+        binding = ActivityPasswordResetBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         Intent intent = getIntent();
         final String username = intent.getStringExtra("username");
@@ -32,15 +32,11 @@ public class PasswordResetActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Reset password for " + username, Toast.LENGTH_SHORT).show();
 
-        final EditText newPasswordET = findViewById(R.id.reset_password_new_password_et);
-        final EditText confirmPasswordET = findViewById(R.id.reset_password_confirm_password_et);
-        Button resetBtn = findViewById(R.id.reset_password_reset_button);
-
-        resetBtn.setOnClickListener(new View.OnClickListener() {
+        binding.resetPasswordResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newPassword = newPasswordET.getText().toString();
-                String confirmPassword = confirmPasswordET.getText().toString();
+                String newPassword = binding.resetPasswordNewPasswordEt.getText().toString();
+                String confirmPassword = binding.resetPasswordConfirmPasswordEt.getText().toString();
 
                 if (newPassword.length() < 6) {
                     Toast.makeText(PasswordResetActivity.this, "Minimum password length is 6", Toast.LENGTH_SHORT).show();
