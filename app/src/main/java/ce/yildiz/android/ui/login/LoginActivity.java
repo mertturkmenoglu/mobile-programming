@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.databinding.ActivityLoginBinding;
-import ce.yildiz.android.ui.email.EmailComposeActivity;
+import ce.yildiz.android.ui.navigation.NavigationActivity;
 import ce.yildiz.android.ui.user.userlist.UserListActivity;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
@@ -81,9 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                         Toast
                             .makeText(LoginActivity.this, "You made it!!! Login!!!", Toast.LENGTH_SHORT)
                             .show();
-                        Intent emailComposeIntent = new Intent(LoginActivity.this, EmailComposeActivity.class);
-                        emailComposeIntent.putExtra("email", user.getEmail());
-                        startActivity(emailComposeIntent);
+                        Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
+                        navigationIntent.putExtra("email", user.getEmail());
+                        startActivity(navigationIntent);
                     } else {
                         Toast
                             .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)

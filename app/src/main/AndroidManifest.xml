@@ -32,6 +32,8 @@
 
         <activity android:name=".ui.user.UserDetailActivity" />
 
+        <activity android:name=".ui.navigation.NavigationActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
