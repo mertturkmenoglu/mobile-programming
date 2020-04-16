@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ce.yildiz.android.databinding.ActivityNavigationBinding;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.ui.notes.notelist.NoteListActivity;
+import ce.yildiz.android.ui.sensor.SensorActivity;
 import ce.yildiz.android.ui.user.userlist.UserListActivity;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -75,6 +76,8 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NavigationActivity.this, "Sensors", Toast.LENGTH_SHORT).show();
+                Intent sensorListIntent = new Intent(NavigationActivity.this, SensorActivity.class);
+                startActivity(sensorListIntent);
             }
         });
 
