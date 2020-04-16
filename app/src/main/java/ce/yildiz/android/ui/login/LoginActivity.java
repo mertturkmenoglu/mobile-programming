@@ -12,14 +12,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.databinding.ActivityLoginBinding;
-import ce.yildiz.android.ui.email.EmailComposeActivity;
-import ce.yildiz.android.ui.user.userlist.UserListActivity;
+import ce.yildiz.android.ui.navigation.NavigationActivity;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
 
 public class LoginActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
     private ActivityLoginBinding binding;
+    private static int invalidLoginAttemptCount = 0;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidLoginAttemptCount = 0;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,33 +60,35 @@ public class LoginActivity extends AppCompatActivity {
                 String password = binding.loginPasswordEt.getText().toString().trim();
 
                 if (loginText.isEmpty() || password.length() < AppConstants.MIN_PASSWORD_LENGTH) {
-                    Toast
-                        .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
-                        .show();
+                    invalidLoginAttemptCount++;
+
+                    if (invalidLoginAttemptCount >= 3) {
+                        Toast
+                            .makeText(LoginActivity.this, "Too many wrong login attempts. Closing app.", Toast.LENGTH_SHORT)
+                            .show();
+
+                        finish();
+                    } else {
+                        Toast
+                            .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
+                            .show();
+                    }
                 } else {
                     User user = login(loginText, password);
 
                     if (user != null) {
                         Toast
-                            .makeText(LoginActivity.this, "Login", Toast.LENGTH_SHORT)
+                            .makeText(LoginActivity.this, "You made it!!! Login!!!", Toast.LENGTH_SHORT)
                             .show();
-                        Intent emailComposeIntent = new Intent(LoginActivity.this, EmailComposeActivity.class);
-                        emailComposeIntent.putExtra("email", user.getEmail());
-                        startActivity(emailComposeIntent);
+                        Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
+                        navigationIntent.putExtra("email", user.getEmail());
+                        startActivity(navigationIntent);
                     } else {
                         Toast
                             .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
                             .show();
                     }
                 }
-            }
-        });
-
-        binding.loginListUsersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userListIntent = new Intent(LoginActivity.this, UserListActivity.class);
-                startActivity(userListIntent);
             }
         });
     }
