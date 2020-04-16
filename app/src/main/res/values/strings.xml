@@ -40,4 +40,7 @@
     <string name="settings">Settings</string>
     <string name="notes">Notes</string>
     <string name="sensors">Sensors</string>
+    <string name="my_note">My Note</string>
+    <string name="save">Save</string>
+    <string name="my_note_hint">My note</string>
 </resources>
