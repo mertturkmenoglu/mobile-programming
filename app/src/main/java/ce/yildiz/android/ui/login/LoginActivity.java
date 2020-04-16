@@ -13,7 +13,6 @@ import ce.yildiz.android.data.model.User;
 import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.databinding.ActivityLoginBinding;
 import ce.yildiz.android.ui.navigation.NavigationActivity;
-import ce.yildiz.android.ui.user.userlist.UserListActivity;
 import ce.yildiz.android.util.AppConstants;
 import ce.yildiz.android.util.DBHelper;
 
@@ -90,14 +89,6 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                     }
                 }
-            }
-        });
-
-        binding.loginListUsersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent userListIntent = new Intent(LoginActivity.this, UserListActivity.class);
-                startActivity(userListIntent);
             }
         });
     }
