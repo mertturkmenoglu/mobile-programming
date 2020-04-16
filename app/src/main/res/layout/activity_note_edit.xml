@@ -5,17 +5,21 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
+    <EditText
         android:id="@+id/note_edit_note_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
+        android:background="@drawable/rounded_edit_text_shape"
         app:layout_constraintBottom_toTopOf="@id/note_edit_note_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Note Name" />
+        tools:text="Note Name"
+        android:autofillHints=""
+        android:inputType="text"
+        android:hint="@string/my_note" />
 
     <EditText
         android:id="@+id/note_edit_note_edit_text"
@@ -27,9 +31,13 @@
         android:layout_marginBottom="32dp"
         android:autofillHints="@android:string/paste_as_plain_text"
         android:ems="10"
-        android:hint="@string/my_note_hint"
-        android:inputType="text"
+        android:inputType="textMultiLine|textNoSuggestions"
+        android:background="@drawable/rounded_edit_text_shape"
         android:text="@string/my_note"
+        android:gravity="top|start"
+        android:hint="@string/compose_email_hint"
+        android:maxLines="12"
+        android:minLines="8"
         app:layout_constraintBottom_toTopOf="@id/note_edit_save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

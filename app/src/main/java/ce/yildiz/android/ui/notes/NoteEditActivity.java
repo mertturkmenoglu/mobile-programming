@@ -3,10 +3,15 @@ package ce.yildiz.android.ui.notes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.io.OutputStreamWriter;
+
+import ce.yildiz.android.data.model.Note;
 import ce.yildiz.android.databinding.ActivityNoteEditBinding;
 
 public class NoteEditActivity extends AppCompatActivity {
@@ -23,6 +28,69 @@ public class NoteEditActivity extends AppCompatActivity {
         
         if (intent != null) {
             String noteName = intent.getStringExtra("noteName");
+
+            if (noteName != null) {
+                // Edit note
+                binding.noteEditNoteName.setText(noteName);
+                binding.noteEditNoteEditText.setText(intent.getStringExtra("noteContent"));
+            }
         }
+
+        binding.noteEditSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = binding.noteEditNoteName.getText().toString();
+                String content = binding.noteEditNoteEditText.getText().toString();
+                Note note = new Note(name, content);
+                save(note);
+            }
+        });
+
+        binding.noteEditDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(NoteEditActivity.this, "Delete button clicked", Toast.LENGTH_SHORT).show();
+                if (delete(binding.noteEditNoteName.getText().toString())) {
+                    Toast.makeText(NoteEditActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(NoteEditActivity.this, "something happened", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void save(Note note) {
+        if (note.getNoteName().isEmpty()) {
+            Toast.makeText(this, "Can't save empty note", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            String fileName;
+            if (note.getNoteName().endsWith(".txt")) {
+                fileName = note.getNoteName();
+            } else {
+                fileName = note.getNoteName() + ".txt";
+            }
+
+            OutputStreamWriter out = new OutputStreamWriter(openFileOutput(fileName, 0));
+            out.write(note.getContent());
+            out.close();
+            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+        } catch (Throwable t) {
+            Toast.makeText(this, "Something happened", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean delete(String fileName) {
+        if (fileExists(fileName)) {
+            return (new File(getFilesDir().getAbsolutePath(), "/" + fileName)).delete();
+        }
+
+        return false;
+    }
+
+    private boolean fileExists(String fileName){
+        return getBaseContext().getFileStreamPath(fileName).exists();
     }
 }

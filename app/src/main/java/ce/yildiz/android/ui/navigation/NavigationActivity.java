@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ce.yildiz.android.databinding.ActivityNavigationBinding;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
+import ce.yildiz.android.ui.notes.notelist.NoteListActivity;
 import ce.yildiz.android.ui.user.userlist.UserListActivity;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -65,6 +66,8 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NavigationActivity.this, "Notes", Toast.LENGTH_SHORT).show();
+                Intent noteListIntent = new Intent(NavigationActivity.this, NoteListActivity.class);
+                startActivity(noteListIntent);
             }
         });
 
