@@ -63,7 +63,6 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NavigationActivity.this, "Settings", Toast.LENGTH_SHORT).show();
                 Intent settingsIntent = new Intent(NavigationActivity.this, SettingsActivity.class);
                 settingsIntent.putExtra("username", username);
                 startActivity(settingsIntent);

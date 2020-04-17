@@ -19,12 +19,11 @@ import ce.yildiz.android.databinding.ActivityUserDetailBinding;
 import ce.yildiz.android.util.DBHelper;
 
 public class UserDetailActivity extends AppCompatActivity {
-    private ActivityUserDetailBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
+        ce.yildiz.android.databinding.ActivityUserDetailBinding binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Intent incomingIntent = getIntent();

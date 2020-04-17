@@ -20,7 +20,6 @@ import java.util.List;
 import ce.yildiz.android.databinding.ActivitySensorBinding;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
-    private static final String TAG = SensorActivity.class.getSimpleName();
     private ActivitySensorBinding binding;
     private SensorManager sensorManager;
     private Sensor mAccelerometerSensor;
