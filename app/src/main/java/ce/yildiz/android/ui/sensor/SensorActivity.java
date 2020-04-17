@@ -1,6 +1,7 @@
 package ce.yildiz.android.ui.sensor;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -12,8 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -39,12 +38,13 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
             List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+            StringBuilder sb = new StringBuilder();
 
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-            binding.sensorListRecyclerView.setLayoutManager(layoutManager);
+            for (Sensor s : sensorList) {
+                sb.append(s.getName()).append("\n");
+            }
 
-            SensorListAdapter adapter = new SensorListAdapter(sensorList);
-            binding.sensorListRecyclerView.setAdapter(adapter);
+            binding.sensorName.setText(sb.toString());
 
             if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null) {
                 mAccelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -83,6 +83,19 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             prevZ = z;
         } else if (sensorType == mLightSensor.getType()) {
             float lightValue = event.values[0];
+            int background;
+            int foreground;
+
+            if (lightValue < 255) {
+                background = Math.round(lightValue);
+                foreground = Math.round(255 - lightValue);
+            } else {
+                background = 255;
+                foreground = 0;
+            }
+
+            binding.sensorName.setTextColor(Color.rgb(foreground, foreground, foreground));
+            binding.sensorScrollView.setBackgroundColor(Color.rgb(background, background, background));
         }
     }
 
