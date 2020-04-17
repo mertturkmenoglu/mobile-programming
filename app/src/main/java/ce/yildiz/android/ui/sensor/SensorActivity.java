@@ -7,7 +7,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Toast;
 
@@ -27,6 +28,23 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     private float prevX;
     private float prevY;
     private float prevZ;
+    public static final long DISCONNECT_TIMEOUT = 5000;
+    private static final float EPSILON = 1.0F;
+
+    private Handler disconnectHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            return true;
+        }
+    });
+
+    private Runnable disconnectCallback = new Runnable() {
+        @Override
+        public void run() {
+            Toast.makeText(SensorActivity.this, "5 second inactivity", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +95,11 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             float dx = Math.abs(prevX - x);
             float dy = Math.abs(prevY - y);
             float dz = Math.abs(prevZ - z);
-            Log.e(TAG, "Accelerometer changed: " + dx + ", " + dy + ", " + dz + "\n\n");
+
+            if (dx > EPSILON || dy > EPSILON || dz > EPSILON) {
+                resetDisconnectTimer();
+            }
+
             prevX = x;
             prevY = y;
             prevZ = z;
@@ -105,6 +127,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
         sensorManager.registerListener(this, mLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, mAccelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        resetDisconnectTimer();
     }
 
     @Override
@@ -112,5 +136,20 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         super.onPause();
 
         sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopDisconnectTimer();
+    }
+
+    public void resetDisconnectTimer() {
+        disconnectHandler.removeCallbacks(disconnectCallback);
+        disconnectHandler.postDelayed(disconnectCallback, DISCONNECT_TIMEOUT);
+    }
+
+    public void stopDisconnectTimer(){
+        disconnectHandler.removeCallbacks(disconnectCallback);
     }
 }
