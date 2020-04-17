@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                         Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
                         navigationIntent.putExtra("email", user.getEmail());
+                        navigationIntent.putExtra("username", user.getUsername());
                         startActivity(navigationIntent);
                     } else {
                         Toast

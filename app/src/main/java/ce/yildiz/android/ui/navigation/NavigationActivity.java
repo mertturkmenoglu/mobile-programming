@@ -12,6 +12,7 @@ import ce.yildiz.android.databinding.ActivityNavigationBinding;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.ui.notes.notelist.NoteListActivity;
 import ce.yildiz.android.ui.sensor.SensorActivity;
+import ce.yildiz.android.ui.settings.SettingsActivity;
 import ce.yildiz.android.ui.user.userlist.UserListActivity;
 
 public class NavigationActivity extends AppCompatActivity {
@@ -25,19 +26,22 @@ public class NavigationActivity extends AppCompatActivity {
 
         Intent comingIntent = getIntent();
         String intentEmail = null;
+        String intentUsername = null;
 
         try {
             intentEmail = comingIntent.getStringExtra("email");
+            intentUsername = comingIntent.getStringExtra("username");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (intentEmail == null) {
+        if (intentEmail == null || intentUsername == null) {
             Toast.makeText(NavigationActivity.this, "Invalid intent", Toast.LENGTH_SHORT).show();
             finish();
         }
 
         final String email = intentEmail;
+        final String username = intentUsername;
 
         binding.navigationSendEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,13 +64,15 @@ public class NavigationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(NavigationActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(NavigationActivity.this, SettingsActivity.class);
+                settingsIntent.putExtra("username", username);
+                startActivity(settingsIntent);
             }
         });
 
         binding.navigationNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NavigationActivity.this, "Notes", Toast.LENGTH_SHORT).show();
                 Intent noteListIntent = new Intent(NavigationActivity.this, NoteListActivity.class);
                 startActivity(noteListIntent);
             }
@@ -75,7 +81,6 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationSensors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NavigationActivity.this, "Sensors", Toast.LENGTH_SHORT).show();
                 Intent sensorListIntent = new Intent(NavigationActivity.this, SensorActivity.class);
                 startActivity(sensorListIntent);
             }
