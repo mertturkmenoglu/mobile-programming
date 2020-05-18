@@ -54,6 +54,14 @@
     <string name="invalid_intent_error_message">Invalid intent</string>
     <string name="sms_receive_ok_message">SMS Received</string>
     <string name="exception">Unexpected exception</string>
+    <string name="alarm_status">Alarm Status</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_alarm">Add Alarm</string>
+    <string name="invalid_time">Invalid time</string>
+    <string name="alarm_add_error_message">Alarm is already active</string>
+    <string name="alarm_cancel_error_message">Alarm is not set</string>
+    <string name="alarm">Alarm</string>
+    <string name="alarm_set_error_message">Alarm is not set</string>
 
     <string-array name="gender_array">
         <item>Male</item>
