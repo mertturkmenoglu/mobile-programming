@@ -66,6 +66,8 @@
     <string name="download">Download</string>
     <string name="dummy_text_2w">Dummy Text</string>
     <string name="location">Location</string>
+    <string name="get_location">Get Location</string>
+    <string name="share_location">Share Location</string>
 
     <string-array name="gender_array">
         <item>Male</item>
