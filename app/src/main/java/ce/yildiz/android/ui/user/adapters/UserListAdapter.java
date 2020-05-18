@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.user.userlist;
+package ce.yildiz.android.ui.user.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,11 +17,11 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.data.model.User;
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.models.User;
+import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.ui.user.UserDetailActivity;
 import ce.yildiz.android.util.DBHelper;
-import ce.yildiz.android.util.RecyclerViewClickListener;
+import ce.yildiz.android.interfaces.RecyclerViewClickListener;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
     private final Context mContext;
@@ -52,7 +52,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         }
     }
 
-    UserListAdapter(Context context, List<User> users, RecyclerViewClickListener listener) {
+    public UserListAdapter(Context context, List<User> users, RecyclerViewClickListener listener) {
         this.mContext = context;
         this.mUsers = users;
         this.mListener = listener;
@@ -101,7 +101,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         return mUsers.size();
     }
 
-    void deleteItem(int position) {
+    public void deleteItem(int position) {
         User removedUser = mUsers.remove(position);
         notifyItemRemoved(position);
 

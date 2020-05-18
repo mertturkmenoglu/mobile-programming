@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.models.UserContract;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "userinfo.db";

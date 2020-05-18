@@ -1,4 +1,4 @@
-package ce.yildiz.android.util;
+package ce.yildiz.android.interfaces;
 
 import android.view.View;
 

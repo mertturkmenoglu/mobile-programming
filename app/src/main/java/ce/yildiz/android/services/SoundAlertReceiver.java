@@ -7,7 +7,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.util.Log;
 
 public class SoundAlertReceiver extends BroadcastReceiver {
     private static final String TAG = SoundAlertReceiver.class.getSimpleName();
@@ -21,7 +20,6 @@ public class SoundAlertReceiver extends BroadcastReceiver {
         if (ringtone == null) return;
 
         ringtone.play();
-        Log.d(TAG, "Ringtone started to play");
 
         new Handler().postDelayed(new Runnable() {
             @Override

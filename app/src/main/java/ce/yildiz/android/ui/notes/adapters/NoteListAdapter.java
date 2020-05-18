@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.notes.notelist;
+package ce.yildiz.android.ui.notes.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.data.model.Note;
-import ce.yildiz.android.util.RecyclerViewClickListener;
+import ce.yildiz.android.models.Note;
+import ce.yildiz.android.interfaces.RecyclerViewClickListener;
 
 public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteViewHolder> {
     private List<Note> mNotes;
@@ -36,7 +36,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         }
     }
 
-    NoteListAdapter(List<Note> notes, RecyclerViewClickListener listener) {
+    public NoteListAdapter(List<Note> notes, RecyclerViewClickListener listener) {
         this.mNotes = notes;
         this.mListener = listener;
     }

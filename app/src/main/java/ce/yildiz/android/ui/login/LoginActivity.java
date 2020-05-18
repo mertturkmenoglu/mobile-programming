@@ -9,11 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.data.model.User;
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.R;
+import ce.yildiz.android.models.User;
+import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityLoginBinding;
 import ce.yildiz.android.ui.navigation.NavigationActivity;
-import ce.yildiz.android.util.AppConstants;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -40,7 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginForgotPasswordText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent forgotPasswordIntent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                Intent forgotPasswordIntent = new Intent(LoginActivity.this,
+                        ForgotPasswordActivity.class);
                 startActivity(forgotPasswordIntent);
             }
         });
@@ -48,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginSignUpText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signUpIntent = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent signUpIntent = new Intent(LoginActivity.this,
+                        SignUpActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -59,34 +62,36 @@ public class LoginActivity extends AppCompatActivity {
                 String loginText = binding.loginLoginEt.getText().toString().trim();
                 String password = binding.loginPasswordEt.getText().toString().trim();
 
-                if (loginText.isEmpty() || password.length() < AppConstants.MIN_PASSWORD_LENGTH) {
+                if (loginText.isEmpty() || password.length() < Constants.MIN_PASSWORD_LENGTH) {
                     invalidLoginAttemptCount++;
 
                     if (invalidLoginAttemptCount >= 3) {
-                        Toast
-                            .makeText(LoginActivity.this, "Too many wrong login attempts. Closing app.", Toast.LENGTH_SHORT)
-                            .show();
+                        Toast.makeText(LoginActivity.this,
+                                R.string.login_attempt_error_text, Toast.LENGTH_SHORT).show();
 
                         finish();
                     } else {
-                        Toast
-                            .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
-                            .show();
+                        Toast.makeText(LoginActivity.this,
+                                    R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     User user = login(loginText, password);
 
                     if (user != null) {
-                        Toast
-                            .makeText(LoginActivity.this, "You made it!!! Login!!!", Toast.LENGTH_SHORT)
-                            .show();
-                        Intent navigationIntent = new Intent(LoginActivity.this, NavigationActivity.class);
+                        Toast.makeText(LoginActivity.this,
+                                R.string.login_ok_message, Toast.LENGTH_SHORT).show();
+
+                        Intent navigationIntent = new Intent(LoginActivity.this,
+                                NavigationActivity.class);
+
                         navigationIntent.putExtra("email", user.getEmail());
                         navigationIntent.putExtra("username", user.getUsername());
+
                         startActivity(navigationIntent);
                     } else {
                         Toast
-                            .makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT)
+                            .makeText(LoginActivity.this,
+                                    R.string.invalid_credentials, Toast.LENGTH_SHORT)
                             .show();
                     }
                 }

@@ -48,7 +48,8 @@ public class EmailComposeActivity extends AppCompatActivity {
                 String compose =  binding.emailCompose.getText().toString().trim();
 
                 if (from.isEmpty() || to.isEmpty() || subject.isEmpty() || compose.isEmpty()) {
-                    Toast.makeText(EmailComposeActivity.this, "Please fill all areas", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailComposeActivity.this,
+                            "Please fill all areas", Toast.LENGTH_SHORT).show();
                 } else {
                     EmailHelper helper = new EmailHelper(EmailComposeActivity.this);
                     helper.send(new String[]{ to }, subject, compose, fileUri);

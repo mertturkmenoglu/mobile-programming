@@ -8,15 +8,16 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityNavigationBinding;
 import ce.yildiz.android.ui.alarm.AlarmActivity;
 import ce.yildiz.android.ui.download.DownloadActivity;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.ui.location.LocationActivity;
-import ce.yildiz.android.ui.notes.notelist.NoteListActivity;
+import ce.yildiz.android.ui.notes.NoteListActivity;
 import ce.yildiz.android.ui.sensor.SensorActivity;
 import ce.yildiz.android.ui.settings.SettingsActivity;
-import ce.yildiz.android.ui.user.userlist.UserListActivity;
+import ce.yildiz.android.ui.user.UserListActivity;
 
 public class NavigationActivity extends AppCompatActivity {
 
@@ -39,7 +40,8 @@ public class NavigationActivity extends AppCompatActivity {
         }
 
         if (intentEmail == null || intentUsername == null) {
-            Toast.makeText(NavigationActivity.this, "Invalid intent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NavigationActivity.this,
+                    R.string.invalid_intent_error_message, Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -49,7 +51,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationSendEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent emailComposeIntent = new Intent(NavigationActivity.this, EmailComposeActivity.class);
+                Intent emailComposeIntent = new Intent(NavigationActivity.this,
+                        EmailComposeActivity.class);
                 emailComposeIntent.putExtra("email", email);
                 startActivity(emailComposeIntent);
             }
@@ -58,7 +61,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationListUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent userListIntent = new Intent(NavigationActivity.this, UserListActivity.class);
+                Intent userListIntent = new Intent(NavigationActivity.this,
+                        UserListActivity.class);
                 startActivity(userListIntent);
             }
         });
@@ -66,7 +70,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent settingsIntent = new Intent(NavigationActivity.this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(NavigationActivity.this,
+                        SettingsActivity.class);
                 settingsIntent.putExtra("username", username);
                 startActivity(settingsIntent);
             }
@@ -75,7 +80,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationNotes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent noteListIntent = new Intent(NavigationActivity.this, NoteListActivity.class);
+                Intent noteListIntent = new Intent(NavigationActivity.this,
+                        NoteListActivity.class);
                 startActivity(noteListIntent);
             }
         });
@@ -83,7 +89,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationSensors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent sensorListIntent = new Intent(NavigationActivity.this, SensorActivity.class);
+                Intent sensorListIntent = new Intent(NavigationActivity.this,
+                        SensorActivity.class);
                 startActivity(sensorListIntent);
             }
         });
@@ -91,7 +98,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent alarmIntent = new Intent(NavigationActivity.this, AlarmActivity.class);
+                Intent alarmIntent = new Intent(NavigationActivity.this,
+                        AlarmActivity.class);
                 startActivity(alarmIntent);
             }
         });
@@ -99,7 +107,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent downloadIntent = new Intent(NavigationActivity.this, DownloadActivity.class);
+                Intent downloadIntent = new Intent(NavigationActivity.this,
+                        DownloadActivity.class);
                 startActivity(downloadIntent);
             }
         });
@@ -107,7 +116,8 @@ public class NavigationActivity extends AppCompatActivity {
         binding.navigationLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent locationIntent = new Intent(NavigationActivity.this, LocationActivity.class);
+                Intent locationIntent = new Intent(NavigationActivity.this,
+                        LocationActivity.class);
                 startActivity(locationIntent);
             }
         });

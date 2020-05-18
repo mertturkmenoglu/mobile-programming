@@ -11,9 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.R;
+import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivitySignUpBinding;
-import ce.yildiz.android.util.AppConstants;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -35,20 +36,24 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = binding.signUpUsernameEt.getText().toString();
                 String email = binding.signUpEmailEt.getText().toString();
                 String password = binding.signUpPasswordEt.getText().toString();
-                String imageURL = "https://github.com/" + binding.signUpGithubUsernameEt.getText().toString() + ".png";
+                String imageURL = "https://github.com/"
+                        + binding.signUpGithubUsernameEt.getText().toString()
+                        + ".png";
 
                 if (username.isEmpty() || email.isEmpty()
-                        || password.length() < AppConstants.MIN_PASSWORD_LENGTH || imageURL.isEmpty()) {
-                    Toast
-                        .makeText(SignUpActivity.this, "Enter credentials", Toast.LENGTH_SHORT)
-                        .show();
+                        || password.length() < Constants.MIN_PASSWORD_LENGTH
+                        || imageURL.isEmpty()) {
+                    Toast.makeText(SignUpActivity.this,
+                            R.string.enter_credentials, Toast.LENGTH_SHORT).show();
                 } else {
                     if (!userExist(username, email)) {
                         saveUser(username, email, password, imageURL);
-                        Intent loginIntent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        Intent loginIntent = new Intent(SignUpActivity.this,
+                                LoginActivity.class);
                         startActivity(loginIntent);
                     } else {
-                        Toast.makeText(SignUpActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpActivity.this,
+                                R.string.user_exist_error_message, Toast.LENGTH_SHORT).show();
                     }
 
                 }

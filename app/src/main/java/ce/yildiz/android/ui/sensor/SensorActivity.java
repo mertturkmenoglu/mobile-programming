@@ -12,11 +12,13 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
 
+import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivitySensorBinding;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
@@ -32,7 +34,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     private Handler disconnectHandler = new Handler(new Handler.Callback() {
         @Override
-        public boolean handleMessage(Message msg) {
+        public boolean handleMessage(@NonNull Message msg) {
             return true;
         }
     });
@@ -40,7 +42,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     private Runnable disconnectCallback = new Runnable() {
         @Override
         public void run() {
-            Toast.makeText(SensorActivity.this, "5 second inactivity", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SensorActivity.this,
+                    R.string.sensor_inactivity_message, Toast.LENGTH_SHORT).show();
             finish();
         }
     };
@@ -72,7 +75,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             }
 
             if (mAccelerometerSensor == null || mLightSensor == null) {
-                Toast.makeText(this, "You need accelerometer and light sensor. Sorry :/", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        R.string.required_sensor_message, Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -124,8 +128,11 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     protected void onResume() {
         super.onResume();
 
-        sensorManager.registerListener(this, mLightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        sensorManager.registerListener(this, mAccelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, mLightSensor,
+                SensorManager.SENSOR_DELAY_NORMAL);
+
+        sensorManager.registerListener(this, mAccelerometerSensor,
+                SensorManager.SENSOR_DELAY_NORMAL);
 
         resetDisconnectTimer();
     }

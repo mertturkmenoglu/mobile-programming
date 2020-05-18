@@ -1,4 +1,4 @@
-package ce.yildiz.android.data.model;
+package ce.yildiz.android.models;
 
 import android.provider.BaseColumns;
 

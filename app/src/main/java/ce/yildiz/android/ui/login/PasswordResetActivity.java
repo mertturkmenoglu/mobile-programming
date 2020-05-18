@@ -10,7 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.R;
+import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityPasswordResetBinding;
 import ce.yildiz.android.util.DBHelper;
 
@@ -30,7 +31,8 @@ public class PasswordResetActivity extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(this);
         mDatabase = dbHelper.getWritableDatabase();
 
-        Toast.makeText(this, "Reset password for " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,
+                "Reset password for " + username, Toast.LENGTH_SHORT).show();
 
         binding.resetPasswordResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,14 +41,20 @@ public class PasswordResetActivity extends AppCompatActivity {
                 String confirmPassword = binding.resetPasswordConfirmPasswordEt.getText().toString();
 
                 if (newPassword.length() < 6) {
-                    Toast.makeText(PasswordResetActivity.this, "Minimum password length is 6", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PasswordResetActivity.this,
+                            R.string.pasasword_length_error_message, Toast.LENGTH_SHORT).show();
                 } else if (!newPassword.equals(confirmPassword)) {
-                    Toast.makeText(PasswordResetActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PasswordResetActivity.this,
+                            R.string.password_match_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     resetPassword(username, newPassword);
 
-                    Toast.makeText(PasswordResetActivity.this, "Reset", Toast.LENGTH_SHORT).show();
-                    Intent loginIntent = new Intent(PasswordResetActivity.this, LoginActivity.class);
+                    Toast.makeText(PasswordResetActivity.this,
+                            "Reset", Toast.LENGTH_SHORT).show();
+
+                    Intent loginIntent = new Intent(PasswordResetActivity.this,
+                            LoginActivity.class);
+
                     startActivity(loginIntent);
                 }
             }

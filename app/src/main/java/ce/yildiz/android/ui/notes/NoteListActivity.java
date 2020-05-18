@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.notes.notelist;
+package ce.yildiz.android.ui.notes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.data.model.Note;
+import ce.yildiz.android.models.Note;
 import ce.yildiz.android.databinding.ActivityNoteListBinding;
-import ce.yildiz.android.ui.notes.NoteEditActivity;
-import ce.yildiz.android.util.RecyclerViewClickListener;
+import ce.yildiz.android.ui.notes.adapters.NoteListAdapter;
+import ce.yildiz.android.interfaces.RecyclerViewClickListener;
 
 public class NoteListActivity extends AppCompatActivity {
     private ActivityNoteListBinding binding;
@@ -52,9 +52,12 @@ public class NoteListActivity extends AppCompatActivity {
                     }
                 }
 
-                Intent noteEditIntent = new Intent(NoteListActivity.this, NoteEditActivity.class);
+                Intent noteEditIntent = new Intent(NoteListActivity.this,
+                        NoteEditActivity.class);
+
                 noteEditIntent.putExtra("noteName", noteName);
                 noteEditIntent.putExtra("noteContent", noteContent);
+
                 startActivity(noteEditIntent);
             }
         };
@@ -65,7 +68,9 @@ public class NoteListActivity extends AppCompatActivity {
         binding.noteListNewNoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newNoteIntent = new Intent(NoteListActivity.this, NoteEditActivity.class);
+                Intent newNoteIntent = new Intent(NoteListActivity.this,
+                        NoteEditActivity.class);
+
                 startActivity(newNoteIntent);
             }
         });
@@ -76,8 +81,10 @@ public class NoteListActivity extends AppCompatActivity {
         File[] files = filesDirectory.listFiles();
         List<Note> noteList = new ArrayList<>();
 
-        for (int i = 0; i < files.length; i++) {
-            String noteName = files[i].getName();
+        if (files == null) return new ArrayList<>();
+
+        for (File file : files) {
+            String noteName = file.getName();
             noteList.add(new Note(noteName, open(noteName)));
         }
 
@@ -106,7 +113,8 @@ public class NoteListActivity extends AppCompatActivity {
                     content = sb.toString();
                 }
             } catch (Throwable t) {
-                Toast.makeText(this, "Something happened", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,
+                        R.string.unknown_error_message, Toast.LENGTH_SHORT).show();
             }
         }
 

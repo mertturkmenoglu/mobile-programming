@@ -68,6 +68,19 @@
     <string name="location">Location</string>
     <string name="get_location">Get Location</string>
     <string name="share_location">Share Location</string>
+    <string name="login_attempt_error_text">Too many wrong login attempts. Closing app.</string>
+    <string name="invalid_credentials">Invalid credentials</string>
+    <string name="login_ok_message">You made it!!! Login!!!</string>
+    <string name="pasasword_length_error_message">Minimum password length is 6</string>
+    <string name="password_match_error_message">Passwords do not match</string>
+    <string name="enter_credentials">Enter credentials</string>
+    <string name="user_exist_error_message">User already exist</string>
+    <string name="note_delete_ok_message">Deleted</string>
+    <string name="unknown_error_message">something happened</string>
+    <string name="note_save_empty_error_message">Can\'t save empty note</string>
+    <string name="sensor_inactivity_message">5 second inactivity</string>
+    <string name="required_sensor_message">You need accelerometer and light sensor. Sorry :/</string>
+    <string name="invalid_values">Invalid values</string>
 
     <string-array name="gender_array">
         <item>Male</item>

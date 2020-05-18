@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.user.userlist;
+package ce.yildiz.android.ui.user;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,11 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.data.model.User;
-import ce.yildiz.android.data.model.UserContract;
 import ce.yildiz.android.databinding.ActivityUserListBinding;
+import ce.yildiz.android.models.User;
+import ce.yildiz.android.models.UserContract;
+import ce.yildiz.android.ui.user.adapters.UserListAdapter;
 import ce.yildiz.android.util.DBHelper;
-import ce.yildiz.android.util.RecyclerViewClickListener;
+import ce.yildiz.android.interfaces.RecyclerViewClickListener;
 
 public class UserListActivity extends AppCompatActivity {
     private static final int USER_DETAIL_REQUEST_CODE = 2;

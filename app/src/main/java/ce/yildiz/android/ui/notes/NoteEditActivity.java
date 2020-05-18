@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import java.io.OutputStreamWriter;
 
-import ce.yildiz.android.data.model.Note;
+import ce.yildiz.android.R;
+import ce.yildiz.android.models.Note;
 import ce.yildiz.android.databinding.ActivityNoteEditBinding;
 
 public class NoteEditActivity extends AppCompatActivity {
@@ -49,11 +50,15 @@ public class NoteEditActivity extends AppCompatActivity {
         binding.noteEditDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NoteEditActivity.this, "Delete button clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NoteEditActivity.this,
+                        "Delete button clicked", Toast.LENGTH_SHORT).show();
+
                 if (delete(binding.noteEditNoteName.getText().toString())) {
-                    Toast.makeText(NoteEditActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NoteEditActivity.this,
+                            R.string.note_delete_ok_message, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(NoteEditActivity.this, "something happened", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NoteEditActivity.this,
+                            R.string.unknown_error_message, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -61,7 +66,8 @@ public class NoteEditActivity extends AppCompatActivity {
 
     private void save(Note note) {
         if (note.getNoteName().isEmpty()) {
-            Toast.makeText(this, "Can't save empty note", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    R.string.note_save_empty_error_message, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -78,7 +84,8 @@ public class NoteEditActivity extends AppCompatActivity {
             out.close();
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
         } catch (Throwable t) {
-            Toast.makeText(this, "Something happened", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    R.string.unknown_error_message, Toast.LENGTH_SHORT).show();
         }
     }
 

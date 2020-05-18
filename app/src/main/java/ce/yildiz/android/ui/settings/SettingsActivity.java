@@ -86,9 +86,12 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
-                editor.putString("gender", (String) binding.settingsGenderSpinner.getSelectedItem());
-                editor.putInt("height", Integer.parseInt(binding.settingsHeightEt.getText().toString()));
-                editor.putInt("weight", Integer.parseInt(binding.settingsWeightEt.getText().toString()));
+                editor.putString("gender",
+                        (String) binding.settingsGenderSpinner.getSelectedItem());
+                editor.putInt("height",
+                        Integer.parseInt(binding.settingsHeightEt.getText().toString()));
+                editor.putInt("weight",
+                        Integer.parseInt(binding.settingsWeightEt.getText().toString()));
                 editor.putInt("age", binding.settingsAgePicker.getValue());
 
                 if (binding.settingDarkRadioBtn.isChecked()) {

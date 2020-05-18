@@ -10,8 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import ce.yildiz.android.data.model.User;
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.models.User;
+import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityForgotPasswordBinding;
 import ce.yildiz.android.util.DBHelper;
 
@@ -30,18 +30,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 String loginText = binding.forgotPasswordLoginEt.getText().toString();
 
                 if (loginText.isEmpty()) {
-                    Toast
-                        .makeText(ForgotPasswordActivity.this, "Invalid e-mail/username", Toast.LENGTH_SHORT)
-                        .show();
+                    Toast.makeText(ForgotPasswordActivity.this,
+                            "Invalid e-mail/username", Toast.LENGTH_SHORT).show();
                 } else {
                     User user = findUser(loginText);
 
                     if (user != null) {
-                        Intent passwordResetIntent = new Intent(ForgotPasswordActivity.this, PasswordResetActivity.class);
+                        Intent passwordResetIntent = new Intent(ForgotPasswordActivity.this,
+                                PasswordResetActivity.class);
+
                         passwordResetIntent.putExtra("username", user.getUsername());
                         startActivity(passwordResetIntent);
                     } else {
-                        Toast.makeText(ForgotPasswordActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this,
+                                "User does not exist", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

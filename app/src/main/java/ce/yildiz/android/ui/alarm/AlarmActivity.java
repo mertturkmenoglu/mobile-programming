@@ -69,8 +69,9 @@ public class AlarmActivity extends AppCompatActivity {
             return;
         }
 
-        NotificationUtil.cancelSound(AlarmActivity.this, REQUEST_CODE);
         isAlarmActive = false;
+
+        NotificationUtil.cancelSound(AlarmActivity.this, REQUEST_CODE);
         updateAlarmStatusText(getString(R.string.alarm_set_error_message));
     }
 

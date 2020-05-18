@@ -25,7 +25,7 @@ import com.google.android.gms.tasks.Task;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityLocationBinding;
-import ce.yildiz.android.util.AppConstants;
+import ce.yildiz.android.util.Constants;
 
 public class LocationActivity extends AppCompatActivity {
     private ActivityLocationBinding binding;
@@ -58,7 +58,7 @@ public class LocationActivity extends AppCompatActivity {
     }
 
     private void shareLocation() {
-        String uri = AppConstants.MAP_BASE_URL + mLatitude + "," + mLongitude;
+        String uri = Constants.MAP_BASE_URL + mLatitude + "," + mLongitude;
         Intent mapIntent = new Intent(Intent.ACTION_SEND);
 
         mapIntent.setType("text/plain");
@@ -146,7 +146,7 @@ public class LocationActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION
         };
 
-        ActivityCompat.requestPermissions(this, permissions, AppConstants.PERMISSION_ID);
+        ActivityCompat.requestPermissions(this, permissions, Constants.PERMISSION_ID);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class LocationActivity extends AppCompatActivity {
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == AppConstants.PERMISSION_ID) {
+        if (requestCode == Constants.PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             }

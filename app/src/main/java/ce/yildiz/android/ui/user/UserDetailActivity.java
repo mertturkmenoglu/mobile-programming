@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.data.model.UserContract;
+import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityUserDetailBinding;
 import ce.yildiz.android.util.DBHelper;
 
@@ -23,7 +23,7 @@ public class UserDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ce.yildiz.android.databinding.ActivityUserDetailBinding binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
+        ActivityUserDetailBinding binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Intent incomingIntent = getIntent();
@@ -38,7 +38,8 @@ public class UserDetailActivity extends AppCompatActivity {
         String password = incomingIntent.getStringExtra("password");
 
         if (imageURL == null || username == null || email == null || password == null) {
-            Toast.makeText(UserDetailActivity.this, "Invalid values", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserDetailActivity.this,
+                    R.string.invalid_values, Toast.LENGTH_SHORT).show();
             return;
         }
 

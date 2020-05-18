@@ -1,5 +1,6 @@
-package ce.yildiz.android.data.model;
+package ce.yildiz.android.models;
 
+@SuppressWarnings("unused")
 public class Note {
     private String noteName;
     private String content;
