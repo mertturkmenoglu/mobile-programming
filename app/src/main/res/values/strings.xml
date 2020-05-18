@@ -51,6 +51,9 @@
     <string name="mode">Mode</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
+    <string name="invalid_intent_error_message">Invalid intent</string>
+    <string name="sms_receive_ok_message">SMS Received</string>
+    <string name="exception">Unexpected exception</string>
 
     <string-array name="gender_array">
         <item>Male</item>
