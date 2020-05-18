@@ -78,7 +78,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/navigation_alarm"
         app:layout_constraintTop_toBottomOf="@id/navigation_settings"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/navigation_download" />
 
     <Button
         android:id="@+id/navigation_alarm"
@@ -90,9 +90,39 @@
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@android:color/black"
-        app:layout_constraintStart_toEndOf="@id/navigation_sensors"
+        app:layout_constraintBottom_toTopOf="@id/navigation_location"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/navigation_notes"
+        app:layout_constraintStart_toEndOf="@id/navigation_sensors"
+        app:layout_constraintTop_toBottomOf="@id/navigation_notes" />
+
+    <Button
+        android:id="@+id/navigation_download"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_button_shape"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/download"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/navigation_location"
+        app:layout_constraintTop_toBottomOf="@id/navigation_sensors"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/navigation_location"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_button_shape"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/location"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/navigation_download"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigation_alarm"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

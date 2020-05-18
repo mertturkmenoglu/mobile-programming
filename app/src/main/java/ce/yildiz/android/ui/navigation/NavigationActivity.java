@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import ce.yildiz.android.databinding.ActivityNavigationBinding;
 import ce.yildiz.android.ui.alarm.AlarmActivity;
+import ce.yildiz.android.ui.download.DownloadActivity;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.ui.notes.notelist.NoteListActivity;
 import ce.yildiz.android.ui.sensor.SensorActivity;
@@ -91,6 +92,14 @@ public class NavigationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent alarmIntent = new Intent(NavigationActivity.this, AlarmActivity.class);
                 startActivity(alarmIntent);
+            }
+        });
+
+        binding.navigationDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent downloadIntent = new Intent(NavigationActivity.this, DownloadActivity.class);
+                startActivity(downloadIntent);
             }
         });
     }

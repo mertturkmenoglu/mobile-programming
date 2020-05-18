@@ -62,6 +62,10 @@
     <string name="alarm_cancel_error_message">Alarm is not set</string>
     <string name="alarm">Alarm</string>
     <string name="alarm_set_error_message">Alarm is not set</string>
+    <string name="download_activity_title">Download Activity</string>
+    <string name="download">Download</string>
+    <string name="dummy_text_2w">Dummy Text</string>
+    <string name="location">Location</string>
 
     <string-array name="gender_array">
         <item>Male</item>
