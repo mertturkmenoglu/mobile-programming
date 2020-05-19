@@ -128,11 +128,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (binding.settingDarkRadioBtn.isChecked()) {
             editor.putString(Constants.SettingsFields.THEME, Constants.AppThemes.DARK);
+            SharedPreferencesUtil.saveApplicationTheme(SettingsActivity.this, mUsername, Constants.AppThemes.DARK);
         } else {
             editor.putString(Constants.SettingsFields.THEME, Constants.AppThemes.LIGHT);
+            SharedPreferencesUtil.saveApplicationTheme(SettingsActivity.this, mUsername, Constants.AppThemes.LIGHT);
         }
 
         editor.apply();
+
 
         Intent navigationIntent = new Intent(SettingsActivity.this,
                 NavigationActivity.class);
