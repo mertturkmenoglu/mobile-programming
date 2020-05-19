@@ -16,11 +16,13 @@ import java.util.List;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivitySettingsBinding;
+import ce.yildiz.android.ui.navigation.NavigationActivity;
 import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,20 +38,15 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(root);
 
         Intent comingIntent = getIntent();
-        String intentUsername = null;
+        String username = comingIntent.getStringExtra("username");
 
-        try {
-            intentUsername = comingIntent.getStringExtra("username");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (intentUsername == null) {
-            Toast.makeText(this, "Invalid intent", Toast.LENGTH_SHORT).show();
+        if (username == null) {
+            Toast.makeText(this,
+                    R.string.invalid_intent_error_message, Toast.LENGTH_SHORT).show();
             finish();
+            return;
         }
 
-        final String username = intentUsername;
         binding.settingsUsernameTextView.setText(username);
 
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(
@@ -65,14 +62,23 @@ public class SettingsActivity extends AppCompatActivity {
         binding.settingsAgePicker.setMaxValue(120);
         binding.settingsAgePicker.setWrapSelectorWheel(true);
 
-        final SharedPreferences sharedPreferences = getApplicationContext()
+        sharedPreferences = getApplicationContext()
                 .getSharedPreferences(username, Context.MODE_PRIVATE);
 
-        String gender = sharedPreferences.getString("gender", "Male");
-        int height = sharedPreferences.getInt("height", 0);
-        int weight = sharedPreferences.getInt("weight", 0);
-        int age = sharedPreferences.getInt("age", 20);
-        String mode = sharedPreferences.getString("theme", "Light");
+        final String gender = sharedPreferences.getString(Constants.SettingsFields.GENDER,
+                Constants.GenderOptions.NON_BINARY);
+
+        final int height = sharedPreferences.getInt(Constants.SettingsFields.HEIGHT,
+                Constants.DEFAULT_HEIGHT);
+
+        final int weight = sharedPreferences.getInt(Constants.SettingsFields.WEIGHT,
+                Constants.DEFAULT_WEIGHT);
+
+        final int age = sharedPreferences.getInt(Constants.SettingsFields.AGE,
+                Constants.DEFAULT_AGE);
+
+        final String theme = sharedPreferences.getString(Constants.SettingsFields.THEME,
+                Constants.AppThemes.LIGHT);
 
         List<String> genderChoices = Arrays.asList(
                 getResources().getStringArray(R.array.gender_array)
@@ -83,7 +89,7 @@ public class SettingsActivity extends AppCompatActivity {
         binding.settingsWeightEt.setText(String.valueOf(weight));
         binding.settingsAgePicker.setValue(age);
 
-        if (mode.equals("Dark")) {
+        if (theme.equals(Constants.AppThemes.DARK)) {
             binding.settingDarkRadioBtn.toggle();
         } else {
             binding.settingsLightRadioBtn.toggle();
@@ -92,24 +98,35 @@ public class SettingsActivity extends AppCompatActivity {
         binding.settingsSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.putString("gender",
-                        (String) binding.settingsGenderSpinner.getSelectedItem());
-                editor.putInt("height",
-                        Integer.parseInt(binding.settingsHeightEt.getText().toString()));
-                editor.putInt("weight",
-                        Integer.parseInt(binding.settingsWeightEt.getText().toString()));
-                editor.putInt("age", binding.settingsAgePicker.getValue());
-
-                if (binding.settingDarkRadioBtn.isChecked()) {
-                    editor.putString("theme", "Dark");
-                } else {
-                    editor.putString("theme", "Light");
-                }
-
-                editor.apply();
+                save();
             }
         });
+    }
+
+    private void save() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putString(Constants.SettingsFields.GENDER,
+                (String) binding.settingsGenderSpinner.getSelectedItem());
+        editor.putInt(Constants.SettingsFields.HEIGHT,
+                Integer.parseInt(binding.settingsHeightEt.getText().toString()));
+        editor.putInt(Constants.SettingsFields.WEIGHT,
+                Integer.parseInt(binding.settingsWeightEt.getText().toString()));
+        editor.putInt(Constants.SettingsFields.AGE, binding.settingsAgePicker.getValue());
+
+        if (binding.settingDarkRadioBtn.isChecked()) {
+            editor.putString(Constants.SettingsFields.THEME, Constants.AppThemes.DARK);
+        } else {
+            editor.putString(Constants.SettingsFields.THEME, Constants.AppThemes.LIGHT);
+        }
+
+        editor.apply();
+
+        Intent navigationIntent = new Intent(SettingsActivity.this,
+                NavigationActivity.class);
+
+        navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(navigationIntent);
+        finish();
     }
 }
