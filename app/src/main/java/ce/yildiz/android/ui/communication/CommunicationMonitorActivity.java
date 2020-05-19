@@ -14,12 +14,20 @@ import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityCommunicationMonitorBinding;
 import ce.yildiz.android.interfaces.CommunicationReader;
 import ce.yildiz.android.services.SmsReceiver;
+import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class CommunicationMonitorActivity extends AppCompatActivity implements CommunicationReader {
     private static final String INPUT_FILE = SmsReceiver.class.getSimpleName() + ".txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         ActivityCommunicationMonitorBinding binding =
                 ActivityCommunicationMonitorBinding.inflate(getLayoutInflater());
