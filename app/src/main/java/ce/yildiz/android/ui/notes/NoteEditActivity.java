@@ -30,19 +30,19 @@ public class NoteEditActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         binding = ActivityNoteEditBinding.inflate(getLayoutInflater());
-        View root = binding.getRoot();
-        setContentView(root);
+        setContentView(binding.getRoot());
 
         Intent intent = getIntent();
 
         if (intent == null) return;
 
         String noteName = intent.getStringExtra("noteName");
+        String noteContent = intent.getStringExtra("noteContent");
 
-        if (noteName != null) {
+        if (noteName != null && noteContent != null) {
             // Edit note
             binding.noteEditNoteName.setText(noteName);
-            binding.noteEditNoteEditText.setText(intent.getStringExtra("noteContent"));
+            binding.noteEditNoteEditText.setText(noteContent);
         }
 
         binding.noteEditSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -77,17 +77,17 @@ public class NoteEditActivity extends AppCompatActivity {
         }
 
         try {
-            String fileName;
-            if (note.getNoteName().endsWith(".txt")) {
-                fileName = note.getNoteName();
-            } else {
+            String fileName = note.getNoteName();
+
+            if (!note.getNoteName().endsWith(".txt")) {
                 fileName = note.getNoteName() + ".txt";
             }
 
             OutputStreamWriter out = new OutputStreamWriter(openFileOutput(fileName, 0));
             out.write(note.getContent());
             out.close();
-            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,
+                    R.string.note_saved_ok_message, Toast.LENGTH_SHORT).show();
         } catch (Throwable t) {
             Toast.makeText(this,
                     R.string.unknown_error_message, Toast.LENGTH_SHORT).show();

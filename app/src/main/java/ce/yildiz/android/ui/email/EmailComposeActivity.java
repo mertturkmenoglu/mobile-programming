@@ -39,11 +39,11 @@ public class EmailComposeActivity extends AppCompatActivity {
 
         if (intent == null) return;
 
-        String intentEmail = intent.getStringExtra("email");
+        String email = intent.getStringExtra("email");
 
-        if (intentEmail == null) return;
+        if (email == null) return;
 
-        binding.emailFromEt.setText(intentEmail);
+        binding.emailFromEt.setText(email);
 
         binding.emailSendButton.setOnClickListener(new View.OnClickListener() {
             @Override

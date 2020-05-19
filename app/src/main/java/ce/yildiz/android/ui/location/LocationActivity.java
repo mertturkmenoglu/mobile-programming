@@ -97,7 +97,8 @@ public class LocationActivity extends AppCompatActivity {
                             return;
                         }
 
-                        String locationText = location.getLatitude() + ", " + location.getLongitude();
+                        String locationText = location.getLatitude() + ", "
+                                + location.getLongitude();
                         binding.locationLocationText.setText(locationText);
 
                         mLatitude = location.getLatitude();

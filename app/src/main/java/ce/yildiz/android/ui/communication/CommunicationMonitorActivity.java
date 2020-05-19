@@ -29,6 +29,7 @@ public class CommunicationMonitorActivity extends AppCompatActivity implements C
         }
 
         super.onCreate(savedInstanceState);
+
         ActivityCommunicationMonitorBinding binding =
                 ActivityCommunicationMonitorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -47,14 +48,16 @@ public class CommunicationMonitorActivity extends AppCompatActivity implements C
         try{
             FileInputStream stream = context.openFileInput(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            String line;
             StringBuilder content = new StringBuilder();
+
+            String line;
 
             while((line=reader.readLine()) != null){
                 content.append(line).append("\n");
             }
 
             stream.close();
+
             return content.toString();
         } catch (Exception e){
             e.printStackTrace();

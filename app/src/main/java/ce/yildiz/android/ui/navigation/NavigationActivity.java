@@ -34,8 +34,7 @@ public class NavigationActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         ActivityNavigationBinding binding = ActivityNavigationBinding.inflate(getLayoutInflater());
-        View root = binding.getRoot();
-        setContentView(root);
+        setContentView(binding.getRoot());
 
         Intent intent = getIntent();
 
