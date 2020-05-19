@@ -36,8 +36,8 @@
     <string name="delete_user_message">Are you sure you want to delete user?</string>
     <string name="reset_password">Reset password</string>
     <string name="update">Update</string>
-    <string name="send_email">Send Email</string>
-    <string name="settings">Settings</string>
+    <string name="send_email">SEND EMAIL</string>
+    <string name="settings">SETTINGS</string>
     <string name="notes">Notes</string>
     <string name="sensors">Sensors</string>
     <string name="my_note">My Note</string>
@@ -65,7 +65,7 @@
     <string name="download_activity_title">Download Activity</string>
     <string name="download">Download</string>
     <string name="dummy_text_2w">Dummy Text</string>
-    <string name="location">Location</string>
+    <string name="location">LOCATION</string>
     <string name="get_location">Get Location</string>
     <string name="share_location">Share Location</string>
     <string name="login_attempt_error_text">Too many wrong login attempts. Closing app.</string>
