@@ -23,6 +23,8 @@ import ce.yildiz.android.util.SharedPreferencesUtil;
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
     private SharedPreferences sharedPreferences;
+    private String mUsername;
+    private String mEmail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,16 +40,22 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(root);
 
         Intent comingIntent = getIntent();
-        String username = comingIntent.getStringExtra("username");
 
-        if (username == null) {
+        if (comingIntent == null) return;
+
+        // Email is needed to return to NavigationActivity
+        // after saving settings
+        mUsername = comingIntent.getStringExtra("username");
+        mEmail = comingIntent.getStringExtra("email");
+
+        if (mUsername == null || mEmail == null) {
             Toast.makeText(this,
                     R.string.invalid_intent_error_message, Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
 
-        binding.settingsUsernameTextView.setText(username);
+        binding.settingsUsernameTextView.setText(mUsername);
 
         ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(
                 this,
@@ -63,7 +71,7 @@ public class SettingsActivity extends AppCompatActivity {
         binding.settingsAgePicker.setWrapSelectorWheel(true);
 
         sharedPreferences = getApplicationContext()
-                .getSharedPreferences(username, Context.MODE_PRIVATE);
+                .getSharedPreferences(mUsername, Context.MODE_PRIVATE);
 
         final String gender = sharedPreferences.getString(Constants.SettingsFields.GENDER,
                 Constants.GenderOptions.NON_BINARY);
@@ -106,12 +114,16 @@ public class SettingsActivity extends AppCompatActivity {
     private void save() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
+
         editor.putString(Constants.SettingsFields.GENDER,
                 (String) binding.settingsGenderSpinner.getSelectedItem());
+
         editor.putInt(Constants.SettingsFields.HEIGHT,
                 Integer.parseInt(binding.settingsHeightEt.getText().toString()));
+
         editor.putInt(Constants.SettingsFields.WEIGHT,
                 Integer.parseInt(binding.settingsWeightEt.getText().toString()));
+
         editor.putInt(Constants.SettingsFields.AGE, binding.settingsAgePicker.getValue());
 
         if (binding.settingDarkRadioBtn.isChecked()) {
@@ -125,7 +137,10 @@ public class SettingsActivity extends AppCompatActivity {
         Intent navigationIntent = new Intent(SettingsActivity.this,
                 NavigationActivity.class);
 
+        navigationIntent.putExtra("username", mUsername);
+        navigationIntent.putExtra("email", mEmail);
         navigationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         startActivity(navigationIntent);
         finish();
     }

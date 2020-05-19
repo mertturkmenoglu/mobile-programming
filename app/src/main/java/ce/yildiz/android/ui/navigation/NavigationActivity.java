@@ -36,25 +36,19 @@ public class NavigationActivity extends AppCompatActivity {
         View root = binding.getRoot();
         setContentView(root);
 
-        Intent comingIntent = getIntent();
-        String intentEmail = null;
-        String intentUsername = null;
+        Intent intent = getIntent();
 
-        try {
-            intentEmail = comingIntent.getStringExtra("email");
-            intentUsername = comingIntent.getStringExtra("username");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (intent == null) return;
 
-        if (intentEmail == null || intentUsername == null) {
+        final String email = intent.getStringExtra("email");
+        final String username = intent.getStringExtra("username");
+
+        if (email == null || username == null) {
             Toast.makeText(NavigationActivity.this,
                     R.string.invalid_intent_error_message, Toast.LENGTH_SHORT).show();
             finish();
+            return;
         }
-
-        final String email = intentEmail;
-        final String username = intentUsername;
 
         binding.navigationSendEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +74,10 @@ public class NavigationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent settingsIntent = new Intent(NavigationActivity.this,
                         SettingsActivity.class);
+
                 settingsIntent.putExtra("username", username);
+                settingsIntent.putExtra("email", email);
+
                 startActivity(settingsIntent);
             }
         });

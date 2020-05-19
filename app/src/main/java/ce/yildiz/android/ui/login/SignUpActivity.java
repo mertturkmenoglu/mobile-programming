@@ -50,6 +50,8 @@ public class SignUpActivity extends AppCompatActivity {
                         saveUser(username, email, password, imageURL);
                         Intent loginIntent = new Intent(SignUpActivity.this,
                                 LoginActivity.class);
+
+                        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(loginIntent);
                     } else {
                         Toast.makeText(SignUpActivity.this,

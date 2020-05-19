@@ -55,6 +55,7 @@ public class PasswordResetActivity extends AppCompatActivity {
                     Intent loginIntent = new Intent(PasswordResetActivity.this,
                             LoginActivity.class);
 
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(loginIntent);
                 }
             }
