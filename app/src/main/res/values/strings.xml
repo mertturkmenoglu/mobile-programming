@@ -87,6 +87,8 @@
     <string name="reset">Reset</string>
     <string name="download_completed_image_description">Download Completed</string>
     <string name="download_ok_message">Download completed</string>
+    <string name="no_sms_message">No SMS received</string>
+    <string name="monitor">MONITOR</string>
 
     <string-array name="gender_array">
         <item>Male</item>

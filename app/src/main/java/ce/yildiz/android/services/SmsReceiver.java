@@ -8,16 +8,21 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import ce.yildiz.android.R;
+import ce.yildiz.android.interfaces.CommunicationLogger;
 import ce.yildiz.android.util.Constants;
 
-public class SmsReceiver extends BroadcastReceiver {
+public class SmsReceiver extends BroadcastReceiver implements CommunicationLogger {
     private static final String SMS_ACTION = "android.provider.Telephony.SMS_RECEIVED";
     private static final String TAG = SmsReceiver.class.getSimpleName();
+    private static final String OUTPUT_FILE = SmsReceiver.class.getSimpleName() + ".txt";
 
     @SuppressWarnings("deprecation")
     @Override
@@ -48,24 +53,36 @@ public class SmsReceiver extends BroadcastReceiver {
 
                 String dateStr = DateFormat.getDateInstance(DateFormat.DEFAULT).format(c.getTime());
 
-                String toastMessage = "Phone Number: "
+                String msg = "Phone Number: "
                         + smsMessages.get(i).getDisplayOriginatingAddress();
 
                 String smsBody = smsMessages.get(i).getMessageBody();
 
-                toastMessage += "\nMessage: " + smsBody.substring(0,
+                msg += "\nMessage: " + smsBody.substring(0,
                         Math.min(smsBody.length() - 1, Constants.MAX_CONTENT_LENGTH));
 
-                toastMessage += "...";
-                toastMessage += "\nDate: " + dateStr;
+                msg += "...";
+                msg += "\nDate: " + dateStr;
 
-                Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
-                Log.d(TAG, "onReceive: " + toastMessage);
+                Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onReceive: " + msg);
+                writeContent(context, OUTPUT_FILE, msg);
             }
 
             return;
         }
 
         Log.e(TAG, "onReceive: Sms receive toast message failed");
+    }
+
+    @Override
+    public void writeContent(@NonNull Context context, @NonNull String file, String content) {
+        try{
+            FileOutputStream stream = context.openFileOutput(file, Context.MODE_APPEND);
+            stream.write((content + "\n").getBytes());
+            stream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

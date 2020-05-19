@@ -108,7 +108,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/navigation_location"
         app:layout_constraintTop_toBottomOf="@id/navigation_sensors"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/navigation_monitor" />
 
     <Button
         android:id="@+id/navigation_location"
@@ -123,6 +123,21 @@
         app:layout_constraintStart_toEndOf="@id/navigation_download"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/navigation_alarm"
+        app:layout_constraintBottom_toTopOf="@id/navigation_monitor" />
+
+    <Button
+        android:id="@+id/navigation_monitor"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/login_button_shape"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/monitor"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/navigation_download"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

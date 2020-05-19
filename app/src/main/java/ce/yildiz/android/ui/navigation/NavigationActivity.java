@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityNavigationBinding;
 import ce.yildiz.android.ui.alarm.AlarmActivity;
+import ce.yildiz.android.ui.communication.CommunicationMonitorActivity;
 import ce.yildiz.android.ui.download.DownloadActivity;
 import ce.yildiz.android.ui.email.EmailComposeActivity;
 import ce.yildiz.android.ui.location.LocationActivity;
@@ -124,6 +125,15 @@ public class NavigationActivity extends AppCompatActivity {
                 Intent locationIntent = new Intent(NavigationActivity.this,
                         LocationActivity.class);
                 startActivity(locationIntent);
+            }
+        });
+
+        binding.navigationMonitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent monitorIntent = new Intent(NavigationActivity.this,
+                        CommunicationMonitorActivity.class);
+                startActivity(monitorIntent);
             }
         });
     }
