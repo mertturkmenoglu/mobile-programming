@@ -15,6 +15,7 @@ public final class Constants {
     public static final String IMAGE_EXTENSION = ".png";
     public static final float EPSILON = 1.0F;
     public static final long DISCONNECT_TIMEOUT = 5000;
+    public static final int MAX_CONTENT_LENGTH = 10;
 
     public static final class AppThemes {
         public static final String DARK = "Dark";

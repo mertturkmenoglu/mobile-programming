@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import ce.yildiz.android.R;
+import ce.yildiz.android.util.Constants;
 
 public class SmsReceiver extends BroadcastReceiver {
     private static final String SMS_ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -42,13 +43,21 @@ public class SmsReceiver extends BroadcastReceiver {
             ArrayList<SmsMessage> smsMessages = new ArrayList<>(pduArr.length);
 
             for (int i = 0; i < pduArr.length; i++) {
-                smsMessages.set(i, SmsMessage.createFromPdu((byte[]) pduArr[i]));
+                smsMessages.add(SmsMessage.createFromPdu((byte[]) pduArr[i]));
                 Calendar c = Calendar.getInstance();
+
                 String dateStr = DateFormat.getDateInstance(DateFormat.DEFAULT).format(c.getTime());
+
                 String toastMessage = "Phone Number: "
                         + smsMessages.get(i).getDisplayOriginatingAddress();
-                toastMessage += "Message: " + smsMessages.get(i).getMessageBody();
-                toastMessage += "Date: " + dateStr;
+
+                String smsBody = smsMessages.get(i).getMessageBody();
+
+                toastMessage += "\nMessage: " + smsBody.substring(0,
+                        Math.min(smsBody.length() - 1, Constants.MAX_CONTENT_LENGTH));
+
+                toastMessage += "...";
+                toastMessage += "\nDate: " + dateStr;
 
                 Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
                 Log.d(TAG, "onReceive: " + toastMessage);
