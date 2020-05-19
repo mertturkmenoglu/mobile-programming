@@ -85,6 +85,8 @@
     <string name="invalid_email_or_username_message">Invalid e-mail/username</string>
     <string name="user_not_exist_message">User does not exist</string>
     <string name="reset">Reset</string>
+    <string name="download_completed_image_description">Download Completed</string>
+    <string name="download_ok_message">Download completed</string>
 
     <string-array name="gender_array">
         <item>Male</item>

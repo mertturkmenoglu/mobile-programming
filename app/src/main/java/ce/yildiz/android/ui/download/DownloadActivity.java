@@ -8,12 +8,14 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Calendar;
 import java.util.Random;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityDownloadBinding;
+import ce.yildiz.android.ui.download.fragments.DownloadCompleteDialogFragment;
 import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.NotificationUtil;
 import ce.yildiz.android.util.SharedPreferencesUtil;
@@ -48,6 +50,15 @@ public class DownloadActivity extends AppCompatActivity {
 
     private void download() {
         new DummyBackgroundTask().execute(MAX_PROGRESS);
+    }
+
+    private void showDownloadCompleteDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        DownloadCompleteDialogFragment downloadCompleteDialogFragment =
+                DownloadCompleteDialogFragment.newInstance(R.drawable.ic_file_download_accent_48dp);
+
+        downloadCompleteDialogFragment.show(fm,
+                DownloadCompleteDialogFragment.class.getSimpleName());
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -113,6 +124,8 @@ public class DownloadActivity extends AppCompatActivity {
 
             binding.downloadStatusText.setText(status);
             binding.downloadProgressBar.setProgress(MAX_PROGRESS);
+            
+            showDownloadCompleteDialog();
         }
     }
 }
