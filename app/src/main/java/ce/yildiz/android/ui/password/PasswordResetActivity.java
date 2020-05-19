@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.login;
+package ce.yildiz.android.ui.password;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ce.yildiz.android.R;
 import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityPasswordResetBinding;
+import ce.yildiz.android.ui.login.LoginActivity;
 import ce.yildiz.android.util.DBHelper;
 
 public class PasswordResetActivity extends AppCompatActivity {

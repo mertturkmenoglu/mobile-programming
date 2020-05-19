@@ -14,6 +14,8 @@ import ce.yildiz.android.models.User;
 import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityLoginBinding;
 import ce.yildiz.android.ui.navigation.NavigationActivity;
+import ce.yildiz.android.ui.password.ForgotPasswordActivity;
+import ce.yildiz.android.ui.register.RegisterActivity;
 import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.SharedPreferencesUtil;
@@ -51,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent signUpIntent = new Intent(LoginActivity.this,
-                        SignUpActivity.class);
+                        RegisterActivity.class);
                 startActivity(signUpIntent);
             }
         });

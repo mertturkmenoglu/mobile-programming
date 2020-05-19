@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.login;
+package ce.yildiz.android.ui.password;
 
 import android.content.Intent;
 import android.database.Cursor;

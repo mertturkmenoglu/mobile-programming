@@ -1,4 +1,4 @@
-package ce.yildiz.android.ui.login;
+package ce.yildiz.android.ui.register;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -14,11 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import ce.yildiz.android.R;
 import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivitySignUpBinding;
+import ce.yildiz.android.ui.login.LoginActivity;
 import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.StringUtil;
 
-public class SignUpActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     private SQLiteDatabase db;
     private ActivitySignUpBinding binding;
 
@@ -43,18 +44,18 @@ public class SignUpActivity extends AppCompatActivity {
                 if (username.isEmpty() || email.isEmpty()
                         || password.length() < Constants.MIN_PASSWORD_LENGTH
                         || imageURL.isEmpty()) {
-                    Toast.makeText(SignUpActivity.this,
+                    Toast.makeText(RegisterActivity.this,
                             R.string.enter_credentials, Toast.LENGTH_SHORT).show();
                 } else {
                     if (!userExist(username, email)) {
                         saveUser(username, email, password, imageURL);
-                        Intent loginIntent = new Intent(SignUpActivity.this,
+                        Intent loginIntent = new Intent(RegisterActivity.this,
                                 LoginActivity.class);
 
                         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(loginIntent);
                     } else {
-                        Toast.makeText(SignUpActivity.this,
+                        Toast.makeText(RegisterActivity.this,
                                 R.string.user_exist_error_message, Toast.LENGTH_SHORT).show();
                     }
 
