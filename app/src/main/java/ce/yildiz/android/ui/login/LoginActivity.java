@@ -19,7 +19,7 @@ import ce.yildiz.android.util.DBHelper;
 import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class LoginActivity extends AppCompatActivity {
-    private SQLiteDatabase mDatabase;
+    private SQLiteDatabase db;
     private ActivityLoginBinding binding;
     private static int invalidLoginAttemptCount = 0;
 
@@ -33,11 +33,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        View root = binding.getRoot();
-        setContentView(root);
+        setContentView(binding.getRoot());
 
         DBHelper dbHelper = new DBHelper(this);
-        mDatabase = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
 
         binding.loginForgotPasswordText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private User login(String loginText, String password) {
-        Cursor cursor = mDatabase.query(
+        Cursor cursor = db.query(
                 UserContract.UserEntry.TABLE_NAME,
                 null,
                 null,

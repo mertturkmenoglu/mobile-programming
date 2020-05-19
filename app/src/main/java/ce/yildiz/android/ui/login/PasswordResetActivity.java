@@ -50,7 +50,7 @@ public class PasswordResetActivity extends AppCompatActivity {
                     resetPassword(username, newPassword);
 
                     Toast.makeText(PasswordResetActivity.this,
-                            "Reset", Toast.LENGTH_SHORT).show();
+                            R.string.reset, Toast.LENGTH_SHORT).show();
 
                     Intent loginIntent = new Intent(PasswordResetActivity.this,
                             LoginActivity.class);

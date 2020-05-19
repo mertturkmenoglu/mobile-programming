@@ -34,15 +34,15 @@ public class NoteEditActivity extends AppCompatActivity {
         setContentView(root);
 
         Intent intent = getIntent();
-        
-        if (intent != null) {
-            String noteName = intent.getStringExtra("noteName");
 
-            if (noteName != null) {
-                // Edit note
-                binding.noteEditNoteName.setText(noteName);
-                binding.noteEditNoteEditText.setText(intent.getStringExtra("noteContent"));
-            }
+        if (intent == null) return;
+
+        String noteName = intent.getStringExtra("noteName");
+
+        if (noteName != null) {
+            // Edit note
+            binding.noteEditNoteName.setText(noteName);
+            binding.noteEditNoteEditText.setText(intent.getStringExtra("noteContent"));
         }
 
         binding.noteEditSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -58,9 +58,6 @@ public class NoteEditActivity extends AppCompatActivity {
         binding.noteEditDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(NoteEditActivity.this,
-                        "Delete button clicked", Toast.LENGTH_SHORT).show();
-
                 if (delete(binding.noteEditNoteName.getText().toString())) {
                     Toast.makeText(NoteEditActivity.this,
                             R.string.note_delete_ok_message, Toast.LENGTH_SHORT).show();

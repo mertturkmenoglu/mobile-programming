@@ -39,8 +39,7 @@ public class NoteListActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         binding = ActivityNoteListBinding.inflate(getLayoutInflater());
-        View root = binding.getRoot();
-        setContentView(root);
+        setContentView(binding.getRoot());
 
         final List<Note> notes = getNotesFromInternalStorage();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -57,6 +56,7 @@ public class NoteListActivity extends AppCompatActivity {
                 for (Note note : notes) {
                     if (note.getNoteName().equals(noteName)) {
                         noteContent = note.getContent();
+                        break;
                     }
                 }
 

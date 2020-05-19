@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import ce.yildiz.android.R;
 import ce.yildiz.android.models.User;
 import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityForgotPasswordBinding;
@@ -31,7 +32,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                 if (loginText.isEmpty()) {
                     Toast.makeText(ForgotPasswordActivity.this,
-                            "Invalid e-mail/username", Toast.LENGTH_SHORT).show();
+                            R.string.invalid_email_or_username_message, Toast.LENGTH_SHORT).show();
                 } else {
                     User user = findUser(loginText);
 
@@ -43,7 +44,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         startActivity(passwordResetIntent);
                     } else {
                         Toast.makeText(ForgotPasswordActivity.this,
-                                "User does not exist", Toast.LENGTH_SHORT).show();
+                                R.string.user_not_exist_message, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

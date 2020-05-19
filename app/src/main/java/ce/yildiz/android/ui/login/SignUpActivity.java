@@ -16,9 +16,10 @@ import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivitySignUpBinding;
 import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
+import ce.yildiz.android.util.StringUtil;
 
 public class SignUpActivity extends AppCompatActivity {
-    private SQLiteDatabase mDatabase;
+    private SQLiteDatabase db;
     private ActivitySignUpBinding binding;
 
     @Override
@@ -28,17 +29,16 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         DBHelper dbHelper = new DBHelper(this);
-        mDatabase = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
 
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = binding.signUpUsernameEt.getText().toString();
-                String email = binding.signUpEmailEt.getText().toString();
-                String password = binding.signUpPasswordEt.getText().toString();
-                String imageURL = "https://github.com/"
-                        + binding.signUpGithubUsernameEt.getText().toString()
-                        + ".png";
+                final String username = binding.signUpUsernameEt.getText().toString();
+                final String email = binding.signUpEmailEt.getText().toString();
+                final String password = binding.signUpPasswordEt.getText().toString();
+                final String githubUsername = binding.signUpGithubUsernameEt.getText().toString();
+                String imageURL = StringUtil.composeImageUrl(githubUsername);
 
                 if (username.isEmpty() || email.isEmpty()
                         || password.length() < Constants.MIN_PASSWORD_LENGTH
@@ -63,11 +63,13 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void saveUser(String username, String email, String password, String imageURL) {
         ContentValues cv = new ContentValues();
+
         cv.put(UserContract.UserEntry.COLUMN_USER_NAME, username);
         cv.put(UserContract.UserEntry.COLUMN_EMAIL, email);
         cv.put(UserContract.UserEntry.COLUMN_PASSWORD, password);
         cv.put(UserContract.UserEntry.COLUMN_IMAGE_URL, imageURL);
-        mDatabase.insert(UserContract.UserEntry.TABLE_NAME, null, cv);
+
+        db.insert(UserContract.UserEntry.TABLE_NAME, null, cv);
     }
 
     private boolean userExist(String username, String email) {

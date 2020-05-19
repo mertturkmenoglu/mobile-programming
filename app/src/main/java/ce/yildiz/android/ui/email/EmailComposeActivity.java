@@ -35,18 +35,15 @@ public class EmailComposeActivity extends AppCompatActivity {
         View root = binding.getRoot();
         setContentView(root);
 
-        Intent comingIntent = getIntent();
-        String intentEmail = null;
+        Intent intent = getIntent();
 
-        try {
-            intentEmail = comingIntent.getStringExtra("email");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        if (intent == null) return;
 
-        if (intentEmail != null) {
-            binding.emailFromEt.setText(intentEmail);
-        }
+        String intentEmail = intent.getStringExtra("email");
+
+        if (intentEmail == null) return;
+
+        binding.emailFromEt.setText(intentEmail);
 
         binding.emailSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +55,7 @@ public class EmailComposeActivity extends AppCompatActivity {
 
                 if (from.isEmpty() || to.isEmpty() || subject.isEmpty() || compose.isEmpty()) {
                     Toast.makeText(EmailComposeActivity.this,
-                            "Please fill all areas", Toast.LENGTH_SHORT).show();
+                            R.string.fill_areas_message, Toast.LENGTH_SHORT).show();
                 } else {
                     EmailHelper helper = new EmailHelper(EmailComposeActivity.this);
                     helper.send(new String[]{ to }, subject, compose, fileUri);

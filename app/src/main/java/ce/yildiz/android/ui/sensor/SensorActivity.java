@@ -9,7 +9,6 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import java.util.List;
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivitySensorBinding;
 import ce.yildiz.android.util.Constants;
-import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
     private ActivitySensorBinding binding;
@@ -31,8 +29,6 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     private float prevX;
     private float prevY;
     private float prevZ;
-    public static final long DISCONNECT_TIMEOUT = 5000;
-    private static final float EPSILON = 1.0F;
 
     private Handler disconnectHandler = new Handler(new Handler.Callback() {
         @Override
@@ -52,16 +48,11 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
-
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
+
         binding = ActivitySensorBinding.inflate(getLayoutInflater());
-        View root = binding.getRoot();
-        setContentView(root);
+        setContentView(binding.getRoot());
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
@@ -107,7 +98,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             float dy = Math.abs(prevY - y);
             float dz = Math.abs(prevZ - z);
 
-            if (dx > EPSILON || dy > EPSILON || dz > EPSILON) {
+            if (dx > Constants.EPSILON || dy > Constants.EPSILON || dz > Constants.EPSILON) {
                 resetDisconnectTimer();
             }
 
@@ -160,7 +151,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     public void resetDisconnectTimer() {
         disconnectHandler.removeCallbacks(disconnectCallback);
-        disconnectHandler.postDelayed(disconnectCallback, DISCONNECT_TIMEOUT);
+        disconnectHandler.postDelayed(disconnectCallback, Constants.DISCONNECT_TIMEOUT);
     }
 
     public void stopDisconnectTimer(){
