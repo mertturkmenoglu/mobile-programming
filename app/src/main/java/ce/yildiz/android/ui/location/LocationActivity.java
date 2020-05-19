@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityLocationBinding;
 import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class LocationActivity extends AppCompatActivity {
     private ActivityLocationBinding binding;
@@ -36,6 +37,12 @@ public class LocationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

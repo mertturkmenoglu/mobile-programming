@@ -23,11 +23,13 @@ import java.util.List;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityUserListBinding;
+import ce.yildiz.android.interfaces.RecyclerViewClickListener;
 import ce.yildiz.android.models.User;
 import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.ui.user.adapters.UserListAdapter;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
-import ce.yildiz.android.interfaces.RecyclerViewClickListener;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class UserListActivity extends AppCompatActivity {
     private static final int USER_DETAIL_REQUEST_CODE = 2;
@@ -35,6 +37,12 @@ public class UserListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityUserListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

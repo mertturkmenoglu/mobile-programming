@@ -20,6 +20,8 @@ import java.util.List;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivitySensorBinding;
+import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class SensorActivity extends AppCompatActivity implements SensorEventListener {
     private ActivitySensorBinding binding;
@@ -50,6 +52,12 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivitySensorBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();

@@ -18,11 +18,19 @@ import ce.yildiz.android.ui.notes.NoteListActivity;
 import ce.yildiz.android.ui.sensor.SensorActivity;
 import ce.yildiz.android.ui.settings.SettingsActivity;
 import ce.yildiz.android.ui.user.UserListActivity;
+import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class NavigationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         ActivityNavigationBinding binding = ActivityNavigationBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();

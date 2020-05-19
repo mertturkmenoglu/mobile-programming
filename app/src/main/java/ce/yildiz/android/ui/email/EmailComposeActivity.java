@@ -9,8 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityEmailComposeBinding;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.EmailHelper;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class EmailComposeActivity extends AppCompatActivity {
     @SuppressWarnings("unused")
@@ -21,6 +24,12 @@ public class EmailComposeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityEmailComposeBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();

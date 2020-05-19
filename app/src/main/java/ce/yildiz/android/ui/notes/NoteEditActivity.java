@@ -12,14 +12,22 @@ import java.io.File;
 import java.io.OutputStreamWriter;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.models.Note;
 import ce.yildiz.android.databinding.ActivityNoteEditBinding;
+import ce.yildiz.android.models.Note;
+import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class NoteEditActivity extends AppCompatActivity {
     private ActivityNoteEditBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityNoteEditBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();

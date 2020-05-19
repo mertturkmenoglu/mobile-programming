@@ -16,12 +16,20 @@ import java.util.List;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivitySettingsBinding;
+import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class SettingsActivity extends AppCompatActivity {
     private ActivitySettingsBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();
@@ -64,7 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
         int height = sharedPreferences.getInt("height", 0);
         int weight = sharedPreferences.getInt("weight", 0);
         int age = sharedPreferences.getInt("age", 20);
-        String mode = sharedPreferences.getString("mode", "dark");
+        String mode = sharedPreferences.getString("theme", "Light");
 
         List<String> genderChoices = Arrays.asList(
                 getResources().getStringArray(R.array.gender_array)
@@ -75,7 +83,7 @@ public class SettingsActivity extends AppCompatActivity {
         binding.settingsWeightEt.setText(String.valueOf(weight));
         binding.settingsAgePicker.setValue(age);
 
-        if (mode.equals("dark")) {
+        if (mode.equals("Dark")) {
             binding.settingDarkRadioBtn.toggle();
         } else {
             binding.settingsLightRadioBtn.toggle();
@@ -95,9 +103,9 @@ public class SettingsActivity extends AppCompatActivity {
                 editor.putInt("age", binding.settingsAgePicker.getValue());
 
                 if (binding.settingDarkRadioBtn.isChecked()) {
-                    editor.putString("mode", "dark");
+                    editor.putString("theme", "Dark");
                 } else {
-                    editor.putString("mode", "light");
+                    editor.putString("theme", "Light");
                 }
 
                 editor.apply();

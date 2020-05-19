@@ -16,6 +16,7 @@ import ce.yildiz.android.databinding.ActivityLoginBinding;
 import ce.yildiz.android.ui.navigation.NavigationActivity;
 import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class LoginActivity extends AppCompatActivity {
     private SQLiteDatabase mDatabase;
@@ -86,6 +87,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         navigationIntent.putExtra("email", user.getEmail());
                         navigationIntent.putExtra("username", user.getUsername());
+
+                        SharedPreferencesUtil.loadApplicationTheme(LoginActivity.this,
+                                user.getUsername());
 
                         startActivity(navigationIntent);
                     } else {

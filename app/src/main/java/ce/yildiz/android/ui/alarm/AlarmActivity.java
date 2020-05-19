@@ -11,7 +11,9 @@ import java.util.Calendar;
 
 import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityAlarmBinding;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.NotificationUtil;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class AlarmActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 1;
@@ -20,6 +22,12 @@ public class AlarmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityAlarmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

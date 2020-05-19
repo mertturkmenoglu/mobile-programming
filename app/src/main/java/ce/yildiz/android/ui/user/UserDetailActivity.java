@@ -14,14 +14,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.models.UserContract;
 import ce.yildiz.android.databinding.ActivityUserDetailBinding;
+import ce.yildiz.android.models.UserContract;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.DBHelper;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class UserDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         ActivityUserDetailBinding binding = ActivityUserDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -46,7 +54,7 @@ public class UserDetailActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(imageURL)
                 .error(R.drawable.ic_adb_black_24dp)
-                .placeholder(R.drawable.ic_person_holo_purple_24dp)
+                .placeholder(R.drawable.ic_person_accent_24dp)
                 .override(125, 125)
                 .into(binding.userDetailImage);
 
@@ -60,7 +68,7 @@ public class UserDetailActivity extends AppCompatActivity {
                 new AlertDialog.Builder(UserDetailActivity.this)
                         .setTitle(R.string.delete_user)
                         .setMessage(R.string.delete_user_message)
-                        .setIcon(R.drawable.ic_warning_black_24dp)
+                        .setIcon(R.drawable.ic_warning_accent_24dp)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

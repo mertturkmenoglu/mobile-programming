@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -74,6 +73,8 @@
         android:background="@drawable/login_button_shape"
         android:ems="5"
         android:inputType="number"
+        android:autofillHints=""
+        android:hint="@string/height"
         android:gravity="center|center_horizontal"
         android:fontFamily="@font/montserrat"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -101,6 +102,8 @@
         android:ems="5"
         android:background="@drawable/login_button_shape"
         android:inputType="number"
+        android:autofillHints=""
+        android:hint="@string/weight"
         android:gravity="center|center_horizontal"
         android:fontFamily="@font/montserrat"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
@@ -191,7 +194,7 @@
         android:textAllCaps="true"
         android:fontFamily="@font/montserrat"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@android:color/black"
+        android:textColor="@color/gray"
         app:layout_constraintTop_toBottomOf="@id/settings_mode_radio_group"
         app:layout_constraintStart_toStartOf="@id/settings_mode_radio_group"
         app:layout_constraintBottom_toBottomOf="parent" />

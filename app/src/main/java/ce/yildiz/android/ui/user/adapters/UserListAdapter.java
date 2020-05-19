@@ -78,7 +78,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         Glide.with(mContext)
                 .load(user.getImageURL())
                 .override(125, 125)
-                .placeholder(R.drawable.ic_person_holo_purple_24dp)
+                .placeholder(R.drawable.ic_person_accent_24dp)
                 .error(R.drawable.ic_adb_black_24dp)
                 .into(holder.imageIV);
 

@@ -19,16 +19,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ce.yildiz.android.R;
-import ce.yildiz.android.models.Note;
 import ce.yildiz.android.databinding.ActivityNoteListBinding;
-import ce.yildiz.android.ui.notes.adapters.NoteListAdapter;
 import ce.yildiz.android.interfaces.RecyclerViewClickListener;
+import ce.yildiz.android.models.Note;
+import ce.yildiz.android.ui.notes.adapters.NoteListAdapter;
+import ce.yildiz.android.util.Constants;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class NoteListActivity extends AppCompatActivity {
     private ActivityNoteListBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityNoteListBinding.inflate(getLayoutInflater());
         View root = binding.getRoot();

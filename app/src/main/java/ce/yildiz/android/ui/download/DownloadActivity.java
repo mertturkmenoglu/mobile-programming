@@ -12,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Calendar;
 import java.util.Random;
 
+import ce.yildiz.android.R;
 import ce.yildiz.android.databinding.ActivityDownloadBinding;
+import ce.yildiz.android.util.Constants;
 import ce.yildiz.android.util.NotificationUtil;
+import ce.yildiz.android.util.SharedPreferencesUtil;
 
 public class DownloadActivity extends AppCompatActivity {
     public static final int MAX_PROGRESS = 100;
@@ -22,6 +25,12 @@ public class DownloadActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (SharedPreferencesUtil.getTheme().equals(Constants.AppThemes.DARK)) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
         super.onCreate(savedInstanceState);
         binding = ActivityDownloadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
